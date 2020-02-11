@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C63BE"
+    android:background="@mipmap/fondo_azul_3"
     tools:context=".MainActivity">
 
     <ImageView
@@ -23,27 +23,49 @@
         android:id="@+id/editTextUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/usuario"
         android:inputType="textPersonName"
-        android:text="Usuario"
         android:textColor="#FFFBFB"
-        android:textColorHint="#00CC1C1C"
+        android:textColorHint="@color/colorBlanco"
+        app:backgroundTint="@color/colorBlanco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.074"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.074" />
+
+    <EditText
+        android:id="@+id/editTextPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/contrase_a"
+        android:inputType="textPersonName|textPassword"
+        android:textColor="#FFFBFB"
+        android:textColorHint="@color/colorBlanco"
+        app:backgroundTint="@color/colorBlanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.233" />
 
     <Button
         android:id="@+id/botonAcceso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="53dp"
+        android:background="@drawable/roundedbutton"
         android:text="@string/acceder"
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPass"
+        app:layout_constraintVertical_bias="0.211" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
