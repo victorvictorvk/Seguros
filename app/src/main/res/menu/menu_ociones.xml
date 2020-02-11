@@ -1,0 +1,23 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/MnuOpc1" android:title="Info"
+        android:icon="@android:drawable/ic_menu_preferences"></item>
+
+    <item android:id="@+id/MnuOpc2" android:title="Fondo"
+        android:icon="@android:drawable/ic_menu_agenda">
+        <menu>
+            <group android:id="@+id/grupo1">
+
+                <item android:id="@+id/SubMnuOpc1"
+                    android:title="Degradado azul" />
+                <item android:id="@+id/SubMnuOpc2"
+                    android:title="Degradado amarillo" />
+                <item android:id="@+id/SubMnuOpc3"
+                    android:title="Degradado rojo" />
+
+            </group>
+        </menu>
+    </item>
+
+</menu>
