@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             int mDefaultColor;
+            //Pepito
 
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
