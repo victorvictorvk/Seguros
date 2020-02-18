@@ -17,85 +17,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ScrollView
+            android:id="@+id/listaClientes"
+            android:layout_width="379dp"
+            android:layout_height="328dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorBlanco">
+
+            <LinearLayout
+                android:id="@+id/linearLayOutScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="231dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal">
 
-            <ScrollView
-                android:id="@+id/listaClientes"
-                android:layout_width="287dp"
-                android:layout_height="172dp"
-                android:background="@mipmap/ic_launcher_round">
-
-            </ScrollView>
-
-            <Button
-                android:id="@+id/botonSeleccionarCliente"
+            <EditText
+                android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/introduce_nombre_cliente"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/botonbuscarCliente"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/roundedbutton"
-                android:text="@string/seleccionar"
+                android:text="@string/buscar"
                 android:textColor="@android:color/background_dark" />
+
         </LinearLayout>
 
         <Button
             android:id="@+id/anadir"
             android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/roundedbutton"
             android:text="@string/a_adir_cliente"
-            android:textColor="@android:color/background_dark" />
-
-        <Button
-            android:id="@+id/botonEliminarCliente"
-            android:layout_width="136dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
-            android:text="@string/eliminar_cliente"
-            android:textColor="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="60dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/buscar_un_cliente"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/editTextBuscar"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:autofillHints=""
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/introduce_cliente"
-                android:inputType="textMultiLine"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/botonbuscarCliente"
-            android:layout_width="136dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/roundedbutton"
-            android:text="@string/buscar"
             android:textColor="@android:color/background_dark" />
 
     </LinearLayout>
