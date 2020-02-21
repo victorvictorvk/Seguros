@@ -2,27 +2,20 @@ package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class Comercial extends AppCompatActivity {
 
+public class Comercial extends AppCompatActivity {
+    AutoCompleteTextView editText;
     LinearLayout linearlayoutScroll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,71 +29,57 @@ public class Comercial extends AppCompatActivity {
         //Obetnemos el linearLayOut de nuestro ScrollView que será dinámico
         linearlayoutScroll = (LinearLayout) findViewById(R.id.linearLayOutScroll);
 
-        establecerScrollView();
-    }
+        ImageView flecha = (ImageView)findViewById(R.id.flecha);
+        editText = findViewById(R.id.autoCompleteTextView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, dameArray());
+        editText.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
 
-    private void establecerScrollView() {
 
-        //Consulta
-        //ArrayList
-        for (int i = 1; i <= 20; i++) {
+        editText.setAdapter(adapter);
 
-            linearlayoutScroll.setOrientation(LinearLayout.VERTICAL);
-
-               // TextView textView = new TextView(this);
-                Button btn = new Button(this);
-                btn.setText("Jose Luis numero "+ i);
-                //textView.setText("TextView " + String.valueOf(i));
-                //setTextViewAttributes(textView);
-                //layoutScroll.addView(textView);
-            final String j = String.valueOf(i);
-            btn.setOnClickListener(new View.OnClickListener() {
+        Button botonBuscar = findViewById(R.id.botonBuscar);
+        if (botonBuscar != null) {
+            botonBuscar.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
-
-
-                    Toast.makeText(Comercial.this,
-                            ("Soy el boton " +j+""), Toast.LENGTH_LONG).show();
+                    String text =  editText.getText().toString();
+                    Toast.makeText(Comercial.this, text, Toast.LENGTH_SHORT).show();
                 }
             });
-
-            setAtributosBotones(btn);
-            linearlayoutScroll.addView(btn);
         }
-        addLineSeperator();
     }
 
-    private void setAtributosBotones(Button bton) {
-        //Creamos un objeto parametro para establecer dimensiones,colores y margenes a cada boton
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        params.setMargins(convertDpToPixel(16),
-                convertDpToPixel(16),
-                0, 0
-        );
-
-        bton.setTextColor(Color.WHITE);
-        bton.setBackgroundColor(Color.BLUE);
-        //Anchura de cada boton
-        bton.setWidth(690);
-        bton.setLayoutParams(params);
+    //Este método hace que se pespligue el autocompletTExtview
+    public void pulsarFlecha(View v)
+    {
+        editText.showDropDown();
     }
 
-    private int convertDpToPixel(float dp) {
-        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return Math.round(px);
+    public String[] dameArray()
+    {
+        /*
+        ArrayList<Character> array = new ArrayList();
+        for (char i = 'a'; i <=20; i++)
+        {
+            array.add(i);
+        }
+        return array;
+        */
+         String[] paises = new String[]{
+                "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Albania", "Algeria", "Andorra", "Angola",
+                 "Aldzfga", "Adfgria", "Aertra", "Aerta", "Akfh", "Aaert", "Avsg", "Astu",
+                 "Albania", "Algeria", "Andorra", "Angola", "Albania", "Algeria", "Andorra", "Angola",
+                 "Aldzfga", "Adfgria", "Aertra", "Aerta", "Akfh", "Aaert", "Avsg", "Astu"
+        };
+        return paises;
     }
 
-    private void addLineSeperator() {
-        LinearLayout lineLayout = new LinearLayout(this);
-        lineLayout.setBackgroundColor(Color.GRAY);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                2);
-        params.setMargins(0, convertDpToPixel(10), 0, convertDpToPixel(10));
-        lineLayout.setLayoutParams(params);
-        linearlayoutScroll.addView(lineLayout);
+    public void mostrarTodosClientes(View v)
+    {
+        //Cambiar esto cuando tengamos conexion a base de datos.
+        Intent intento = new Intent(this, TodosClientes.class);
+        //intento.putExtra("comercial", idCliente.getText().toString());
+        startActivity(intento);
     }
 }
