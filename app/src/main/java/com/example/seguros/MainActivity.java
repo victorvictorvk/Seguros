@@ -166,7 +166,9 @@ public class MainActivity extends AppCompatActivity {
     {
         if (edUsuario.getText().toString().equals("admin"))
         {
-            Intent intento = new Intent(this, Admin.class);
+            //Cambiar esto cuando tengamos conexion a base de datos.
+            Intent intento = new Intent(this, Admin_bueno.class);
+            //intento.putExtra("comercial", idCliente.getText().toString());
             startActivity(intento);
         } else {
             Intent intento = new Intent(this, Comercial.class);

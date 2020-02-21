@@ -38,22 +38,42 @@ public class Comercial extends AppCompatActivity {
 
         editText.setAdapter(adapter);
 
+        /*
         Button botonBuscar = findViewById(R.id.botonBuscar);
         if (botonBuscar != null) {
             botonBuscar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     String text =  editText.getText().toString();
                     Toast.makeText(Comercial.this, text, Toast.LENGTH_SHORT).show();
                 }
             });
         }
+
+         */
     }
 
     //Este método hace que se pespligue el autocompletTExtview
     public void pulsarFlecha(View v)
     {
         editText.showDropDown();
+    }
+
+    public void buscarClientes(View v)
+    {
+        //Coprobamos que el autoCompleteTextView tenga algún dato introducido.
+        if(!editText.getText().toString().equals("") )
+        {
+
+            //Cambiar esto cuando tengamos conexion a base de datos.
+            Intent intento = new Intent(this, Cliente.class);
+            //intento.putExtra("comercial", idCliente.getText().toString());
+            startActivity(intento);
+        }else
+        {
+            Toast.makeText(Comercial.this, "Debes introducir un cliente", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public String[] dameArray()

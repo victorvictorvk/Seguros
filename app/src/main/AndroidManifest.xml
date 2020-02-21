@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".TodosClientes"></activity>
+        <activity android:name=".Admin_bueno"></activity>
+        <activity android:name=".Poliza" />
+        <activity android:name=".Cliente" />
+        <activity android:name=".TodosClientes" />
         <activity android:name=".Comercial" />
         <activity android:name=".MainActivity">
             <intent-filter>
