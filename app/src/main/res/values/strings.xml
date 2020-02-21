@@ -12,4 +12,6 @@
     <string name="buscar">buscar</string>
     <string name="eliminar_cliente">eliminar cliente</string>
     <string name="button">Button</string>
+    <string name="introduce_nombre_cliente">Introduce nombre cliente</string>
+    <string name="mostrar_todos">mostrar todos</string>
 </resources>

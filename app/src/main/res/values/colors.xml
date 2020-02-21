@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#CCCE46</color>
     <color name="colorBlanco">#FFFFFF</color>
+    <color name="fondo_transparente_scroll">#00FFFFFF</color>
 </resources>
