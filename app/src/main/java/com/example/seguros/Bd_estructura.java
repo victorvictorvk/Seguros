@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 import androidx.annotation.Nullable;
 
-public final class bd_estructura
+public final class Bd_estructura
 {
 
         public static String tb1="seguro";
@@ -50,7 +50,7 @@ public final class bd_estructura
 
         protected static String crear_tb3= "CREATE TABLE " +tb3+ " (" +tb3_column1+ " INTEGER PRIMARY KEY," +tb3_column2+
                 " TEXT," +tb3_column3+ " TEXT," +tb3_column4+ " TEXT," +tb3_column5+ " INTEGER," +tb3_column6+ " INTERGER, " +
-                " FOREIGN KEY (" +tb3_column5+ ") REFENRENCES " +tb4+ "(" +tb4_column1+ "))";
+                " FOREIGN KEY (" +tb3_column5+ ") REFERENCES " +tb4+ "(" +tb4_column1+ "))";
 
         protected static String crear_tb2= "CREATE TABLE " +tb2+ " (" +tb2_column1+ " INTEGER PRIMARY KEY," +tb2_column2+
                 " INTEGER," +tb2_column3+ " INTEGER," +tb2_column4+ " INTEGER," +tb2_column5+ " TEXT," +tb2_column6+ " REAL,"

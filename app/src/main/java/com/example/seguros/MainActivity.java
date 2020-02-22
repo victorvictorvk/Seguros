@@ -164,10 +164,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void entrarApp(View v)
     {
+        /*
+        Descomentar cuando funcione la BD
         if (edUsuario.getText().toString().equals("admin"))
         {
             //Cambiar esto cuando tengamos conexion a base de datos.
-            Intent intento = new Intent(this, Admin_bueno.class);
+            Intent intento = new Intent(this, Admin.class);
             //intento.putExtra("comercial", idCliente.getText().toString());
             startActivity(intento);
         } else {
@@ -175,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
             intento.putExtra("comercial", edUsuario.getText().toString());
             startActivity(intento);
         }
+*/
+        Intent intento = new Intent(this, Admin.class);
+        //intento.putExtra("comercial", idCliente.getText().toString());
+        startActivity(intento);
     }
 }
 

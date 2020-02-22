@@ -19,10 +19,11 @@ public class BD extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(bd_estructura.crear_tb1);
-        db.execSQL(bd_estructura.crear_tb4);
-        db.execSQL(bd_estructura.crear_tb3);
-        db.execSQL(bd_estructura.crear_tb2);
+        //Aquí se van llamando a la creación de las tablas
+        db.execSQL(Bd_estructura.crear_tb1);
+        db.execSQL(Bd_estructura.crear_tb4);
+        db.execSQL(Bd_estructura.crear_tb3);
+        db.execSQL(Bd_estructura.crear_tb2);
     }
 
     @Override
@@ -35,21 +36,21 @@ public class BD extends SQLiteOpenHelper
     public ContentValues guardar_seguro(String tipo, String cobertura, double precio)
     {
         ContentValues nuevo_seguro= new ContentValues();
-        nuevo_seguro.put(bd_estructura.tb1_column2, tipo);
-        nuevo_seguro.put(bd_estructura.tb1_column3, cobertura);
-        nuevo_seguro.put(bd_estructura.tb1_column4, precio);
-        nuevo_seguro.put(bd_estructura.tb1_column5, 1);
+        nuevo_seguro.put(Bd_estructura.tb1_column2, tipo);
+        nuevo_seguro.put(Bd_estructura.tb1_column3, cobertura);
+        nuevo_seguro.put(Bd_estructura.tb1_column4, precio);
+        nuevo_seguro.put(Bd_estructura.tb1_column5, 1);
         return nuevo_seguro;
     }
 
     public ContentValues guardar_vendedor(String nif, String nombre, String apellido1, String apellido2)
     {
         ContentValues nuevo_vendedor= new ContentValues();
-        nuevo_vendedor.put(bd_estructura.tb4_column1, nif);
-        nuevo_vendedor.put(bd_estructura.tb4_column2, nombre);
-        nuevo_vendedor.put(bd_estructura.tb4_column3, apellido1);
-        nuevo_vendedor.put(bd_estructura.tb4_column4, apellido2);
-        nuevo_vendedor.put(bd_estructura.tb4_column5, 1);
+        nuevo_vendedor.put(Bd_estructura.tb4_column1, nif);
+        nuevo_vendedor.put(Bd_estructura.tb4_column2, nombre);
+        nuevo_vendedor.put(Bd_estructura.tb4_column3, apellido1);
+        nuevo_vendedor.put(Bd_estructura.tb4_column4, apellido2);
+        nuevo_vendedor.put(Bd_estructura.tb4_column5, 1);
         return nuevo_vendedor;
     }
 

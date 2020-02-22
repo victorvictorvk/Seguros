@@ -30,7 +30,7 @@
         android:layout_height="29dp"
 
 
-        android:contentDescription="TODO"
+        android:contentDescription="flecha para desplegar la lista"
         android:onClick="pulsarFlecha"
         app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextView"
         app:layout_constraintTop_toTopOf="@id/autoCompleteTextView"

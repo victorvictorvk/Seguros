@@ -54,7 +54,7 @@ public class Comercial extends AppCompatActivity {
          */
     }
 
-    //Este método hace que se pespligue el autocompletTExtview
+    //Este método hace que se despligue el autocompletTExtview
     public void pulsarFlecha(View v)
     {
         editText.showDropDown();
