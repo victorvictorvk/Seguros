@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         establecerFondo();
 
     }
-    public void establecerFondo(){
+
+    public void establecerFondo() {
         //Leemos el fichero para saber qué color es el que hay que coger.
         SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
         ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
@@ -54,24 +55,22 @@ public class MainActivity extends AppCompatActivity {
         mDefaultColor = prefs.getInt("numeroColores", 0);
 
 
-        if( nombreFondo.equals("azul"))
-        {
+        if (nombreFondo.equals("azul")) {
             fondo.setBackgroundResource(R.mipmap.fondo_azul_3);
 
-        }else if( nombreFondo.equals("amarillo")) {
+        } else if (nombreFondo.equals("amarillo")) {
             fondo.setBackgroundResource(R.mipmap.fondo_amarillo);
 
-        }else if( nombreFondo.equals("rojo")){
+        } else if (nombreFondo.equals("rojo")) {
             fondo.setBackgroundResource(R.mipmap.fondo_rojo);
-        }else if( nombreFondo.equals("personalizado"))
-        {
+        } else if (nombreFondo.equals("personalizado")) {
             fondo.setBackgroundColor(mDefaultColor);
         }
     }
-    public void menuPopup(View v)
-    {
+
+    public void menuPopup(View v) {
         ImageView icono = (ImageView) findViewById(R.id.icono);
-        PopupMenu menu = new PopupMenu(this,icono);
+        PopupMenu menu = new PopupMenu(this, icono);
         menu.getMenuInflater().inflate(R.menu.menu_ociones, menu.getMenu());
 
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -80,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
                 SharedPreferences preferencias = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
-                String nombreFondo  = "azul";
-                switch (item.getItemId()){
+                String nombreFondo = "azul";
+                switch (item.getItemId()) {
                     case R.id.MnuOpc1:
                         System.exit(1);
-                    break;
+                        break;
 
                     case R.id.SubMnuOpc1:
                         fondo.setBackgroundResource(R.mipmap.fondo_azul_3);
@@ -116,17 +115,15 @@ public class MainActivity extends AppCompatActivity {
         menu.show();
 
     }
-        public void mostar(View v)
-        {
-            SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
-            ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
 
-            int colores = prefs.getInt("numeroColores", 0);
-            Button b = (Button) findViewById(R.id.button);
-            TextView tv = (TextView) findViewById(R.id.textView);
-            tv.setText("");
-            tv.setText(String.valueOf(colores));
-        }
+    public void mostar(View v) {
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+
+        int colores = prefs.getInt("numeroColores", 0);
+
+    }
+
     public int openColorPicker() {
 
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
@@ -149,10 +146,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Usaremos este método para guardar la información en el caso en que pase a segundo plano la App
-    public void onSaveInstanceState (Bundle estado)
-    {
-        estado.putString("comercial",edUsuario.getText().toString());
-        estado.putString("pass",edPass.getText().toString());
+    public void onSaveInstanceState(Bundle estado) {
+        estado.putString("comercial", edUsuario.getText().toString());
+        estado.putString("pass", edPass.getText().toString());
 
         super.onSaveInstanceState(estado);
     }
@@ -166,14 +162,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void entrarApp(View v)
     {
-        Intent intento = new Intent(this, Comercial.class);
-        intento.putExtra("comercial", edUsuario.getText().toString());
-        startActivity(intento);
+        if (edUsuario.getText().toString().equals("admin"))
+        {
+            //Cambiar esto cuando tengamos conexion a base de datos.
+            Intent intento = new Intent(this, Admin_bueno.class);
+            //intento.putExtra("comercial", idCliente.getText().toString());
+            startActivity(intento);
+        } else {
+            Intent intento = new Intent(this, Comercial.class);
+            intento.putExtra("comercial", edUsuario.getText().toString());
+            startActivity(intento);
+        }
     }
-
-
-
 }
+
+

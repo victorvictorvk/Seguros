@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/fondo_azul_3"
+    tools:context=".Poliza">
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="369dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewNumRiesgo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Numero póliza"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextNumeroPoliza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Número de poliza"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/colorBlanco" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewNumRiesgo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Numero Riesgo"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/editTextNumeroRiesgo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Número de riesgo"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/colorBlanco" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textViewComentarios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Comentarios"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+    <EditText
+        android:id="@+id/editTextComentarios"
+        android:layout_width="355dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Aqui van los comentarios de cada póliza"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewComentarios" />
+
+    <Button
+        android:id="@+id/buttonModificarDatosPoliza"
+        android:layout_width="104dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Modificar"
+        android:textColor="@android:color/background_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextComentarios" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
