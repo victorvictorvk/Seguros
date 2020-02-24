@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/fondo_azul_3"
+    tools:context=".Datos_comercial">
+
+    <LinearLayout
+        android:layout_width="408dp"
+        android:layout_height="445dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewApe1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido 1"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextApe1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewApe2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido 2"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextApe2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewDNI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DNI"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextDNI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pass"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Para modificar cualquier campo, basta introducir el dato y pulsar el boton bodificar" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Modificar"
+        android:textColor="?attr/actionModeSplitBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="15dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

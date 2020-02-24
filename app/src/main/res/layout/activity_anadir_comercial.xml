@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedbutton"
-            android:onClick="anadirComercial"
+            android:onClick="anadirComercialV2"
             android:text="Añadir Comercial"
             android:textColor="@android:color/background_dark"
             android:textSize="30sp" />

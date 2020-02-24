@@ -35,8 +35,7 @@ public class AnadirComercial extends AppCompatActivity {
         bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
 
-        //Esto me da error
-        sql = bd.getWritableDatabase() ;
+        sql = bd.getWritableDatabase();
     }
 
     public void anadirComercial(View v)
@@ -79,4 +78,34 @@ public class AnadirComercial extends AppCompatActivity {
             }
         }
 
+        public void anadirComercialV2(View v)
+        {
+            String dni = dniComercial.getText().toString();
+            String nombre = nombreComercial.getText().toString();
+            String apellido1 = ape1Comercial.getText().toString();
+            String apellido2 = ape2Comercial.getText().toString();
+            String passComercial  = pass.getText().toString();
+
+            if(!dni.isEmpty() && !nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty())
+            {
+                //Cremos un objeto de tipo ContentValues que le llamamos registro y le metemos todos los datos que queremos introducir
+                //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
+                ContentValues registronuevo = bd.guardar_vendedor(dni, nombre, apellido1, apellido2, passComercial);
+                //registronuevo.put(Bd_estructura_victor_prueba.tb4_column5, 1);
+                //Llamamos al metodo que inserta el content en la base de datos.
+                bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb4,  registronuevo);
+                //sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
+                sql.close();
+                dniComercial.setText("");
+                nombreComercial.setText("");
+                ape1Comercial.setText("");
+                ape2Comercial.setText("");
+
+                Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
+
+            } else
+            {
+                Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+            }
+        }
 }
