@@ -30,9 +30,19 @@ public class Admin extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         Toast.makeText(this, "hemos acabadop", Toast.LENGTH_SHORT).show();
 
+        crearAdaptadorComerciales();
+        crearAdaptadorComercialesChapuza();
+
+        crearAdaptadorSeguros();
+
+        flechaComerciales = (ImageView)findViewById(R.id.flechaComerciales);
+        flechaSeguros = (ImageView) findViewById(R.id.flechaSeguros);
+    }
+
+    private void crearAdaptadorComercialesChapuza() {
         aCTtVListaComerciales = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewListaComerciales);
-        ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<>(this,
-                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, listaComerciales());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, arrayChapucero());
         aCTtVListaComerciales.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
         aCTtVListaComerciales.setAdapter(adapter);
 
@@ -40,28 +50,30 @@ public class Admin extends AppCompatActivity {
         aCTtVListaComerciales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               //Esta sentencia me devuelve el string seleccionado
+                //Esta sentencia me devuelve el string seleccionado
                 //String dniComercial = parent.getItemAtPosition(position).toString();
 
-                ArrayList<String> fila = (ArrayList<String>) parent.getItemAtPosition(position);
+                String fila =  parent.getItemAtPosition(position).toString();
                 //Obtengo la posicion
                 String dnif = null;
                 String nombref = null;
                 String ape1f = null;
                 String ape2f = null;
 
-                for (int i = 0; i < fila.size(); i++)
-                {
-                    dnif = fila.get(0);
-                     nombref = fila.get(1);
-                     ape1f = fila.get(2);
-                     ape2f = fila.get(3);
-
-                }
+                String[] parts = fila.split(": ");
+                String primera = parts[0];
+                String parte0[] = primera.split(", ");
+                 nombref = parte0[0];
+                 ape1f = parte0[1];
+                 ape2f = parte0[2];
+                dnif = parts[1];
                 cambiarActividadComercial(dnif, nombref, ape1f, ape2f);
             }
         });
+    }
 
+
+    private void crearAdaptadorSeguros() {
         autoCompleteTVListaSeguros = (AutoCompleteTextView) findViewById(R.id.autoCompleteTVListaSeguros);
         ArrayAdapter<ArrayList<String>> adapter2 = new ArrayAdapter<>(this,
                 R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, listaComerciales());
@@ -92,10 +104,40 @@ public class Admin extends AppCompatActivity {
                 cambiarActividadDatosSeguro(idR, tipoR, cobR, precioR);
             }
         });
+    }
 
+    private void crearAdaptadorComerciales() {
+        aCTtVListaComerciales = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewListaComerciales);
+        ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, listaComerciales());
+        aCTtVListaComerciales.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
+        aCTtVListaComerciales.setAdapter(adapter);
 
-        flechaComerciales = (ImageView)findViewById(R.id.flechaComerciales);
-        flechaSeguros = (ImageView) findViewById(R.id.flechaSeguros);
+        //A este autocompletTV le añadimos un escuchador, el cual cambiará de actividad cuando hagamos clic en algun elemento
+        aCTtVListaComerciales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Esta sentencia me devuelve el string seleccionado
+                //String dniComercial = parent.getItemAtPosition(position).toString();
+
+                ArrayList<String> fila = (ArrayList<String>) parent.getItemAtPosition(position);
+                //Obtengo la posicion
+                String dnif = null;
+                String nombref = null;
+                String ape1f = null;
+                String ape2f = null;
+
+                for (int i = 0; i < fila.size(); i++)
+                {
+                    dnif = fila.get(0);
+                    nombref = fila.get(1);
+                    ape1f = fila.get(2);
+                    ape2f = fila.get(3);
+
+                }
+                cambiarActividadComercial(dnif, nombref, ape1f, ape2f);
+            }
+        });
     }
 
     public void cambiarActividadComercial(String dni,String nombre, String ape1,String ape2)
@@ -119,6 +161,15 @@ public class Admin extends AppCompatActivity {
         startActivity(intento);
     }
 
+    public void desplegarListaComercialesChapuza(View v)
+    {
+        //Creamos un adapter para poder mostrar el nombre de los comerciales e incluirlo en el desplegable
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, arrayChapucero());
+        aCTtVListaComerciales.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
+        aCTtVListaComerciales.setAdapter(adapter);
+        aCTtVListaComerciales.showDropDown();
+    }
     public void desplegarListaComerciales(View v)
     {
         //Creamos un adapter para poder mostrar el nombre de los comerciales e incluirlo en el desplegable
@@ -174,7 +225,31 @@ public class Admin extends AppCompatActivity {
         return arrayComerciales;
     }
 
+    public ArrayList<String> arrayChapucero() {
+        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        sql = bd.getReadableDatabase();
+        ArrayList<String> array = new ArrayList<String>();
 
+        //Aqui hacemos una consulta a la base de datos.
+        Cursor c = bd.listaComerciales(sql);
+        //Nos aseguramos de que existe al menos un registro
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                //Estos datos serán globales en toda la clase puesto que es con el que trabajaremos
+                dni = c.getString(0);
+                nombre = c.getString(1);
+                ape1 = c.getString(2);
+
+                ape2 = c.getString(3);
+                array.add(nombre+", " + ape1+ ", " + ape2+ ": "+dni);
+            } while (c.moveToNext());
+        }
+
+        bd.close();
+        sql.close();
+        return array;
+    }
 
     public void desplegarListaSeguros(View v) {
 

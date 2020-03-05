@@ -23,7 +23,7 @@
         android:id="@+id/flechaComerciales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="desplegarListaComerciales"
+        android:onClick="desplegarListaComercialesChapuza"
         app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextViewListaComerciales"
         app:layout_constraintTop_toTopOf="@+id/autoCompleteTextViewListaComerciales"
         app:srcCompat="@android:drawable/arrow_down_float" />
