@@ -18,7 +18,7 @@ public class Datos_comercial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datos_comercial);
 
-        //Super importante, lo primero de todo Abrimos la base de datos
+        //Super importante, lo primero  Abrimos la base de datos
         bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
         //Ahora indicamos que esa apertura se en modo lectura y escritura
         sql = bd.getWritableDatabase();
@@ -43,6 +43,9 @@ public class Datos_comercial extends AppCompatActivity {
         edApe1.setText(ape1);
         edApe2.setText(ape2);
         edDNI.setText(dni);
+
+        bd.close();
+        sql.close();
 
 
     }

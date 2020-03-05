@@ -31,15 +31,19 @@ public class AnadirComercial extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.editTextPass);
         botonAnadirComercial = (Button)findViewById(R.id.botonAnadirComercial);
 
+        /*
         //Abrimos la base de datos
         bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
 
         sql = bd.getWritableDatabase();
+
+         */
     }
 
     public void anadirComercial(View v)
     {
+
 
             String dni = dniComercial.getText().toString();
             String nombre = nombreComercial.getText().toString();
@@ -53,6 +57,10 @@ public class AnadirComercial extends AppCompatActivity {
                 //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
                 //ContentValues registro = bd.guardar_vendedor(dni, nombre, apellido1, apellido2, passComercial);
 
+                bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+                //Ahora indicamos que abra la base de datos en modo lectura y escritura
+                sql = bd.getWritableDatabase();
+
                 ContentValues registronuevo  = new ContentValues();
                 registronuevo.put(Bd_estructura_victor_prueba.tb4_column1, dni);
                 registronuevo.put(Bd_estructura_victor_prueba.tb4_column2, nombre);
@@ -64,11 +72,14 @@ public class AnadirComercial extends AppCompatActivity {
                 //Llamamos al metodo que inserta el content en la base de datos.
                 //bd.insertar_valores(Bd_estructura_victor_prueba.tb4,  registro);
                 sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
-                sql.close();
+
                 dniComercial.setText("");
                 nombreComercial.setText("");
                 ape1Comercial.setText("");
                 ape2Comercial.setText("");
+
+                sql.close();
+                bd.close();
 
                 Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
 
@@ -76,7 +87,9 @@ public class AnadirComercial extends AppCompatActivity {
             {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
             }
-        }
+        finish();
+
+    }
 
         public void anadirComercialV2(View v)
         {

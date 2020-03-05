@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/fondo_azul_3"
-    tools:context=".AnadirComercial">
+    tools:context=".AnadirSeguros">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,58 +21,40 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextDNI"
+            android:id="@+id/editTextTipoSeguro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Introduce el dni comercial"
+            android:hint="Introduce el tipo de Seguro"
             android:inputType="textPersonName"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextNombreComercial"
+            android:id="@+id/editTextCobertura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Introduce el nombre del comercial"
+            android:hint="Introduce cobertura de Seguro"
             android:inputType="textPersonName"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editTextApe1Comercial"
+            android:id="@+id/editTextPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Introduce el primer apellido"
-            android:inputType="textPersonName"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editTextApe2Comercial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Introduce el segundo apellido"
-            android:inputType="textPersonName"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/editTextPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Contraseña"
-            android:inputType="textPersonName" />
+            android:hint="Precio"
+            android:inputType="numberSigned"
+            android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/botonAnadirComercial"
+            android:id="@+id/buttonAnadirSeguro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedbutton"
-            android:onClick="anadirComercial"
-            android:text="Añadir Comercial"
+            android:onClick="anadirSeguro"
+            android:text="Añadir Seguro"
             android:textColor="@android:color/background_dark"
             android:textSize="30sp" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

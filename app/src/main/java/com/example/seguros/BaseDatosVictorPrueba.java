@@ -20,7 +20,6 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
         super(context, name, factory, version);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -33,7 +32,6 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-
         onUpgrade(db, oldVersion, newVersion);
     }
 
@@ -54,34 +52,42 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
         nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column2, nombre);
         nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column3, apellido1);
         nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column4, apellido2);
-
         nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column5, 1);
         nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column6, pass);
-
         return nuevo_vendedor;
     }
 
     public void insertar_valores(SQLiteDatabase sql, String tabla, ContentValues valores)
     {
-    long numero  =         sql.insert(tabla, null, valores);
+    long numero  =   sql.insert(tabla, null, valores);
     }
 
-    //Metodo para devolver una consulta de un comercial
-
+    //Metodo para devolver una consulta de un solo comercial
     public Cursor comercial(String dni)
     {
         Cursor cursor = db.rawQuery("Select "+ Bd_estructura_victor_prueba.tb4_column2 + ", " + Bd_estructura_victor_prueba.tb4_column3 + ", "
                 + Bd_estructura_victor_prueba.tb4_column4 + " from  " + Bd_estructura_victor_prueba.tb4+ " where " +Bd_estructura_victor_prueba.tb4_column1+
                 " = " +dni, null);
+        return cursor;
+    }
+
+    //Metodo para devolver una consulta de una lista de comerciales
+    public Cursor listaComerciales(SQLiteDatabase sql)
+    {
+        //Creamos un array con los campos que queremos seleccionar de la tabla.
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1,Bd_estructura_victor_prueba.tb4_column2, Bd_estructura_victor_prueba.tb4_column3, Bd_estructura_victor_prueba.tb4_column4};
+        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
 
         return cursor;
     }
 
-    public Cursor listaComerciales(SQLiteDatabase sql)
+    //Metodo para devolver una consulta de una lista de seguros
+    public Cursor listaSeguros(SQLiteDatabase sql)
     {
-        //Creamos un array con los campos que queremos seleccionar de la tabla
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1,Bd_estructura_victor_prueba.tb4_column2, Bd_estructura_victor_prueba.tb4_column3, Bd_estructura_victor_prueba.tb4_column4};
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
+        //Creamos un array con los campos que queremos seleccionar de la tabla.
+        //En esta consulta necesitaremos el campo id para futuras acciones
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb1_column1, Bd_estructura_victor_prueba.tb1_column2, Bd_estructura_victor_prueba.tb1_column3,Bd_estructura_victor_prueba.tb1_column4};
+        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb1, columnasARecuperar, null, null, null, null, null);
 
         return cursor;
     }

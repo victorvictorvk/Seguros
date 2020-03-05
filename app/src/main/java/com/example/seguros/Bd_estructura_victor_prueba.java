@@ -45,13 +45,13 @@ public final class Bd_estructura_victor_prueba
 
 
     protected static String crear_tb1= "CREATE TABLE " +tb1+ " (" +tb1_column1+ " INTEGER PRIMARY KEY AUTOINCREMENT," +tb1_column2+
-            " TEXT," +tb1_column3+ " TEXT," +tb1_column4+ " REAL," +tb1_column5+ " INTERGER)";
+            " TEXT," +tb1_column3+ " TEXT," +tb1_column4+ " REAL," +tb1_column5+ " INTEGER)";
 
     protected static String crear_tb4= "CREATE TABLE " +tb4+ " (" +tb4_column1+ " INTEGER PRIMARY KEY," +tb4_column2+
-            " TEXT," +tb4_column3+ " TEXT," +tb4_column4+ " TEXT,"+ tb4_column6+ " TEXT ," +tb4_column5+ " INTERGER DEFAULT 1)";
+            " TEXT," +tb4_column3+ " TEXT," +tb4_column4+ " TEXT,"+ tb4_column6+ " TEXT ," +tb4_column5+ " INTEGER DEFAULT 1)";
 
     protected static String crear_tb3= "CREATE TABLE " +tb3+ " (" +tb3_column1+ " INTEGER PRIMARY KEY," +tb3_column2+
-            " TEXT," +tb3_column3+ " TEXT," +tb3_column4+ " TEXT," +tb3_column5+ " INTEGER," +tb3_column6+ " INTERGER, " +
+            " TEXT," +tb3_column3+ " TEXT," +tb3_column4+ " TEXT," +tb3_column5+ " INTEGER," +tb3_column6+ " INTEGER, " +
             " FOREIGN KEY (" +tb3_column5+ ") REFERENCES " +tb4+ "(" +tb4_column1+ "))";
 
     protected static String crear_tb2= "CREATE TABLE " +tb2+ " (" +tb2_column1+ " INTEGER PRIMARY KEY," +tb2_column2+
