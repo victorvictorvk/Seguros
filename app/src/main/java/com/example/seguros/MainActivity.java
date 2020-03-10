@@ -182,6 +182,12 @@ public class MainActivity extends AppCompatActivity {
         //intento.putExtra("comercial", idCliente.getText().toString());
         startActivity(intento);
     }
+
+    public void onStop()
+    {
+        super.onStop();
+
+    }
 }
 
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 public class BD extends SQLiteOpenHelper
 {
     protected static final int db_version=1;
@@ -54,8 +56,48 @@ public class BD extends SQLiteOpenHelper
         return nuevo_vendedor;
     }
 
+    public ContentValues guardar_poliza(int idSeguro, int idCliente, int riesgo, String comentario, int descuento, Double precio, String nifVendedor)
+    {
+        ContentValues nueva_poliza= new ContentValues();
+        Date fech= new Date();
+
+        nueva_poliza.put(Bd_estructura.tb2_column2, idSeguro);
+        nueva_poliza.put(Bd_estructura.tb2_column3, idCliente);
+        nueva_poliza.put(Bd_estructura.tb2_column4, riesgo);
+        nueva_poliza.put(Bd_estructura.tb2_column5, comentario);
+        nueva_poliza.put(Bd_estructura.tb2_column6, descuento);
+        nueva_poliza.put(Bd_estructura.tb2_column7, precio);
+        nueva_poliza.put(Bd_estructura.tb2_column8, fech.toString());
+        nueva_poliza.put(Bd_estructura.tb2_column9, nifVendedor);
+        nueva_poliza.put(Bd_estructura.tb2_column10, 1);
+
+        return nueva_poliza;
+    }
+
+    public ContentValues guardar_cliente(String nif, String nombre, String apellido1, String apellido2, String nifVendedor)
+    {
+        ContentValues nuevo_cliente= new ContentValues();
+        nuevo_cliente.put(Bd_estructura.tb3_column1, nif);
+        nuevo_cliente.put(Bd_estructura.tb3_column2, nombre);
+        nuevo_cliente.put(Bd_estructura.tb3_column3, apellido1);
+        nuevo_cliente.put(Bd_estructura.tb3_column4, apellido2);
+        nuevo_cliente.put(Bd_estructura.tb3_column5, nifVendedor);
+        nuevo_cliente.put(Bd_estructura.tb3_column5, 1);
+
+        return nuevo_cliente;
+    }
+
     public void insertar_valores(String tabla, ContentValues valores)
     {
-        long id = db.insert(tabla, null, valores);
+        db.beginTransaction();
+        long id=db.insert(tabla, null, valores);
+
+
+    }
+
+    @Override
+    public synchronized void close()
+    {
+        super.close();
     }
 }
