@@ -51,10 +51,11 @@
             android:id="@+id/buttonAnadirSeguro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
+
             android:onClick="anadirSeguro"
             android:text="Añadir Seguro"
             android:textColor="@android:color/background_dark"
+           android:background="@drawable/roundedbutton"
             android:textSize="30sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

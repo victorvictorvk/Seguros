@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,18 +20,19 @@ public class Admin extends AppCompatActivity {
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
     String dni, nombre, ape1, ape2;
-    String idSeguro, tipoSeguro, coberturaSeguro, precioSeguro;
     ArrayList<String> arrayMostrarComerciales;
     ArrayList<ArrayList<String>> arrayComerciales, arraySeguros;
+    ListaSeguros claseListaSeguros;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        Toast.makeText(this, "hemos acabadop", Toast.LENGTH_SHORT).show();
 
-        crearAdaptadorComerciales();
         crearAdaptadorComercialesChapuza();
-
+        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        //Ahora indicamos que abra la base de datos en modo lectura y escritura
+        sql = bd.getWritableDatabase();
+        claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
         crearAdaptadorSeguros();
 
         flechaComerciales = (ImageView)findViewById(R.id.flechaComerciales);
@@ -50,11 +50,7 @@ public class Admin extends AppCompatActivity {
         aCTtVListaComerciales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Esta sentencia me devuelve el string seleccionado
-                //String dniComercial = parent.getItemAtPosition(position).toString();
-
-                String fila =  parent.getItemAtPosition(position).toString();
-                //Obtengo la posicion
+               String fila =  parent.getItemAtPosition(position).toString();
                 String dnif = null;
                 String nombref = null;
                 String ape1f = null;
@@ -71,36 +67,28 @@ public class Admin extends AppCompatActivity {
             }
         });
     }
-
-
     private void crearAdaptadorSeguros() {
         autoCompleteTVListaSeguros = (AutoCompleteTextView) findViewById(R.id.autoCompleteTVListaSeguros);
-        ArrayAdapter<ArrayList<String>> adapter2 = new ArrayAdapter<>(this,
-                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, listaComerciales());
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, claseListaSeguros.listaSeguros());
         autoCompleteTVListaSeguros.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
         autoCompleteTVListaSeguros.setAdapter(adapter2);
 
         autoCompleteTVListaSeguros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Esta sentencia me devuelve el string seleccionado
-                //String dniComercial = parent.getItemAtPosition(position).toString();
-
-                ArrayList<String> fila = (ArrayList<String>) parent.getItemAtPosition(position);
-                //Obtengo la posicion
+                String fila =  parent.getItemAtPosition(position).toString();
                 String idR = null;
                 String tipoR = null;
                 String cobR = null;
                 String precioR = null;
-
-                for (int i = 0; i < fila.size(); i++)
-                {
-                    idR = fila.get(0);
-                    tipoR = fila.get(1);
-                    cobR = fila.get(2);
-                    precioR = fila.get(3);
-
-                }
+                String[] parts = fila.split(": ");
+                String primera = parts[0];
+                String parte0[] = primera.split(", ");
+                tipoR = parte0[0];
+                cobR = parte0[1];
+                precioR = parte0[2];
+                idR = parts[1];
                 cambiarActividadDatosSeguro(idR, tipoR, cobR, precioR);
             }
         });
@@ -254,7 +242,7 @@ public class Admin extends AppCompatActivity {
     public void desplegarListaSeguros(View v) {
 
         //Creamos un adapter para poder mostrar el nombre de los comerciales e incluirlo en el desplegable
-        ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, listaSeguros());
         autoCompleteTVListaSeguros.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
         autoCompleteTVListaSeguros.setAdapter(adapter);
@@ -268,26 +256,23 @@ public class Admin extends AppCompatActivity {
 
 
      */
-    public ArrayList<ArrayList<String>> listaSeguros() {
+    public ArrayList<String> listaSeguros() {
 
         bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
         sql = bd.getReadableDatabase();
-        ArrayList<ArrayList<String>> array = new ArrayList<>();
+        ArrayList<String> array = new ArrayList<>();
         //Aqui hacemos una consulta a la base de datos.
         Cursor c = bd.listaSeguros(sql);
         //Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
-                //Estos datos serán globales en toda la clase puesto que es con el que trabajaremos
-                List<String> row = new ArrayList<>();
-                row.add(c.getString(0));
-                row.add(c.getString(1));
-                row.add(c.getString(2));
-                row.add(c.getString(3));
+                String id_seguro = c.getString(0);
+                String tipoSeguro = c.getString(1);
+                String cobertura = c.getString(2);
+                String precio = c.getString(3);
 
-                array.add((ArrayList<String>) row);
-
+                array.add(tipoSeguro+", "+cobertura+", "+precio+": "+id_seguro);
             } while (c.moveToNext());
         }
         bd.close();

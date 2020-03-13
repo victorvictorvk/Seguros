@@ -29,7 +29,7 @@
                 tools:text="Nombre" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/EDNombreCliente"
                 android:layout_width="wrap_content"
                 android:width="250dp"
                 android:ems="10"
@@ -54,7 +54,7 @@
                 tools:text="Apellido 1" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/EDApe1Cliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="250dp"
@@ -79,7 +79,7 @@
                 tools:text="Apellido 2" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/EDApe2Cliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="250dp"
@@ -104,7 +104,7 @@
                 tools:text="DNI" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/EDDNICliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:width="250dp"
@@ -123,7 +123,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="132dp"
-        android:text="Para moficar cualquier el cliente, basta con editar cualquier campo superior y pulsar el botón"
+        android:text="Para moficar  los datos, basta con editar cualquier campo superior y pulsar el botón"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -159,8 +159,8 @@
     <ScrollView
         android:id="@+id/listaPolizas"
         style="@style/scrollbar_shape_style"
-        android:layout_width="0dp"
-        android:layout_height="181dp"
+        android:layout_width="403dp"
+        android:layout_height="153dp"
         android:layout_gravity="center_horizontal"
 
         android:layout_marginTop="32dp"
@@ -183,12 +183,26 @@
         android:id="@+id/textView5"
         android:layout_width="254dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="Selecciona un seguro para editarlo"
         android:textColor="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listaPolizas" />
+
+    <Button
+        android:id="@+id/botonContratarSeguro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="pasarActividadContratarSeguro"
+        android:padding="10dp"
+        android:text="Contratar seguro"
+        android:textColor="?attr/actionModeSplitBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

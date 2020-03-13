@@ -50,15 +50,23 @@ public final class Bd_estructura_victor_prueba
     protected static String crear_tb4= "CREATE TABLE " +tb4+ " (" +tb4_column1+ " INTEGER PRIMARY KEY," +tb4_column2+
             " TEXT," +tb4_column3+ " TEXT," +tb4_column4+ " TEXT,"+ tb4_column6+ " TEXT ," +tb4_column5+ " INTEGER DEFAULT 1)";
 
-    protected static String crear_tb3= "CREATE TABLE " +tb3+ " (" +tb3_column1+ " INTEGER PRIMARY KEY," +tb3_column2+
+    protected static String crear_tb3= "CREATE TABLE " +tb3+ " (" +tb3_column1+ " INTEGER PRIMARY KEY AUTOINCREMENT," +tb3_column2+
             " TEXT," +tb3_column3+ " TEXT," +tb3_column4+ " TEXT," +tb3_column5+ " INTEGER," +tb3_column6+ " INTEGER, " +
             " FOREIGN KEY (" +tb3_column5+ ") REFERENCES " +tb4+ "(" +tb4_column1+ "))";
 
-    protected static String crear_tb2= "CREATE TABLE " +tb2+ " (" +tb2_column1+ " INTEGER PRIMARY KEY," +tb2_column2+
-            " INTEGER," +tb2_column3+ " INTEGER," +tb2_column4+ " INTEGER," +tb2_column5+ " TEXT," +tb2_column6+ " REAL,"
-            +tb2_column7+ " REAL," +tb2_column8+ " NUMERIC," +tb2_column9+ " INTEGER," +tb2_column10+ " INTEGER," +
-            "FOREIGN KEY (" +tb2_column1+ ") REFERENCES " +tb1+ " (" +tb1_column1+ "), FOREIGN KEY (" +tb2_column2+
-            ") REFERENCES " +tb3+ " (" +tb3_column1+ "), FOREIGN KEY (" +tb2_column3+ ") REFERENCES " +tb4+ " ("
-            +tb4_column1+ "))";
+    protected static String crear_tb2= "CREATE TABLE " +tb2+ " ("
+            +tb2_column1+ " INTEGER,"
+            +tb2_column2+ " INTEGER,"
+            +tb2_column3+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            +tb2_column4+ " INTEGER,"
+            +tb2_column5+ " TEXT,"
+            +tb2_column6+ " REAL,"
+            +tb2_column7+ " REAL,"
+            +tb2_column8+ " NUMERIC,"
+            +tb2_column9+ " INTEGER,"
+            +tb2_column10+ " INTEGER," +
+            "FOREIGN KEY (" +tb2_column1+ ") REFERENCES " +tb1+ " (" +tb1_column1+ "), " +
+            "FOREIGN KEY (" +tb2_column2+ ") REFERENCES " +tb3+ " (" +tb3_column1+ "), " +
+            "FOREIGN KEY (" +tb2_column3+ ") REFERENCES " +tb4+ " (" +tb4_column1+ "))";
 
 }

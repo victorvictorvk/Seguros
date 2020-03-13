@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -23,6 +25,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -162,25 +167,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void entrarApp(View v)
-    {
-        /*
-        Descomentar cuando funcione la BD
-        if (edUsuario.getText().toString().equals("admin"))
-        {
-            //Cambiar esto cuando tengamos conexion a base de datos.
+    public void entrarApp(View v) {
+        //Abrimos conexiones a la BD
+        SQLiteDatabase sql;
+        BaseDatosVictorPrueba bd;
+        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        sql = bd.getReadableDatabase();
+
+
+        if (edUsuario.getText().toString().equals("admin")) {
             Intent intento = new Intent(this, Admin.class);
-            //intento.putExtra("comercial", idCliente.getText().toString());
             startActivity(intento);
-        } else {
+        } else if (bd.passOK(sql, edUsuario.getText().toString(), edPass.getText().toString())) {
+
             Intent intento = new Intent(this, Comercial.class);
+            //Le pasamos el id_usuario al intento para poder visualizar o trabajar con sus datos.
             intento.putExtra("comercial", edUsuario.getText().toString());
             startActivity(intento);
+        } else {
+
+            Toast.makeText(this, "Usuario o contraseña no encontrados.", Toast.LENGTH_SHORT).show();
         }
-*/
-        Intent intento = new Intent(this, Admin.class);
-        //intento.putExtra("comercial", idCliente.getText().toString());
-        startActivity(intento);
     }
 
     public void onStop()

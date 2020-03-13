@@ -9,7 +9,7 @@
 
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/autoCompleteTextView99"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -32,8 +32,8 @@
 
         android:contentDescription="flecha para desplegar la lista"
         android:onClick="pulsarFlecha"
-        app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextView"
-        app:layout_constraintTop_toTopOf="@id/autoCompleteTextView"
+        app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextView99"
+        app:layout_constraintTop_toTopOf="@id/autoCompleteTextView99"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
     <Button
@@ -56,26 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:background="@drawable/roundedbutton"
+        android:onClick="pasarActividadAnadirCliente"
         android:text="@string/a_adir_cliente"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/botonBuscar"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/roundedbutton"
-        android:onClick="buscarClientes"
-        android:text="@string/buscar"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

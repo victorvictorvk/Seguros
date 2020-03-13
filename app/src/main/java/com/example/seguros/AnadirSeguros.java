@@ -38,7 +38,7 @@ public class AnadirSeguros extends AppCompatActivity {
 
         if(!tipoDeSeguro.isEmpty() && !coberturaSeguro.isEmpty() && !precio.getText().toString().isEmpty())
         {
-            //Abrimos coneciones:
+            //Abrimos conexiones:
             bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
             //Ahora indicamos que abra la base de datos en modo lectura y escritura
             sql = bd.getWritableDatabase();

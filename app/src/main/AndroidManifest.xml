@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Datos_Seguros"></activity>
+        <activity android:name=".DatosPoliza"></activity>
+        <activity android:name=".ContratarSeguro" />
+        <activity android:name=".Anadir_clientes" />
+        <activity android:name=".Datos_Seguros" />
         <activity android:name=".AnadirSeguros" />
         <activity android:name=".Datos_comercial" />
         <activity android:name=".AnadirComercial" />
         <activity android:name=".Admin" />
-        <activity android:name=".Poliza" />
         <activity android:name=".Cliente" />
         <activity android:name=".TodosClientes" />
         <activity android:name=".Comercial" />
