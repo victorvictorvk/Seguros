@@ -21,7 +21,9 @@ public class ContratarSeguro extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTVListaSegurosCliente;
     TextView tvDatosCliente;
     EditText eDNumeroRiesgo, eDComentario, eDDescuento;
-    String numeroRiesgo, descuento, comentario, idSeguro, precioSeguro;
+    String  comentario, idSeguro;
+    static String precioSeguro_escogido_crear_poliza;
+    double numeroRiesgo,descuento;
     ImageView  flechaSeguros;
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
@@ -32,12 +34,10 @@ public class ContratarSeguro extends AppCompatActivity {
         setContentView(R.layout.activity_contratar_seguro);
 
         tvDatosCliente =(TextView) findViewById(R.id.textViewDatosCliente);
-        eDNumeroRiesgo = (EditText) findViewById(R.id.editTextNumeroRiesgo);
+        eDNumeroRiesgo = (EditText) findViewById(R.id.editTextNumeroRiesgoContratar);
         eDComentario = (EditText) findViewById(R.id.editTextComentario);
         eDDescuento = (EditText) findViewById(R.id.editTextDescuentoContrato);
-        comentario = eDComentario.getText().toString();
-        numeroRiesgo = eDNumeroRiesgo.getText().toString();
-        descuento = eDDescuento.getText().toString();
+
         flechaSeguros = (ImageView) findViewById(R.id.flechaSeguros);
 
 
@@ -50,34 +50,35 @@ public class ContratarSeguro extends AppCompatActivity {
         claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
 
         crearAdaptadorSeguros();
+        bd.close();
+        sql.close();
+
 
     }
 
     //Cuando pulsamos el botón para hacer la inserción en la BD
     public void contratarSeguro(View v)
     {
+        //Importante recoger aquí los datos!!! que si no, no los lee
+            comentario = eDComentario.getText().toString();
+            numeroRiesgo = Double.valueOf(eDNumeroRiesgo.getText().toString());
+            descuento = Double.valueOf(eDDescuento.getText().toString());
 
-            //Abrimos conexiones:
             bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
-            //Ahora indicamos que abra la base de datos en modo lectura y escritura
             sql = bd.getWritableDatabase();
+            double precioSeguroCalcular = Double.valueOf(precioSeguro_escogido_crear_poliza);
+
+
+             double numeroRiesgoCalcular = 1+((numeroRiesgo)/10);
+            double descuentoCalcular = (descuento*precioSeguroCalcular)/100;
+
+            String precioPersonal = String.valueOf((numeroRiesgoCalcular*precioSeguroCalcular)-descuentoCalcular);
+
+
+           // ContentValues nueva_poliza = bd.guardar_poliza();
 // guardar_poliza(int idSeguro, int idCliente, int riesgo, String comentario, int descuento, Double precio, String nifVendedor)
 
-        /*
-            int precioSeguroint = Integer.valueOf(precioSeguro);
-            //int descuentoint = (Integer.valueOf(descuento.trim())*precioSeguroint)/100;
-        double descuentoint = (Double.valueOf(descuento)*precioSeguroint)/100;
-
-        double numeroriesgoint = 1+ (Double.valueOf(numeroRiesgo)/10);
-
-
-
-            String precioPersonal = String.valueOf((precioSeguroint*numeroriesgoint)-descuentoint);
-
-         */
-           // ContentValues nueva_poliza = bd.guardar_poliza();
-
-        ContentValues nueva_poliza = bd.guardar_poliza(idSeguro, Comercial.dni_cliente_elegido, numeroRiesgo, comentario, descuento,  precioSeguro, Comercial.dniComercial);
+        ContentValues nueva_poliza = bd.guardar_poliza(idSeguro, Comercial.dni_cliente_elegido, String.valueOf(numeroRiesgo), comentario, String.valueOf(descuento),  precioPersonal, Comercial.dniComercial);
             bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb2,  nueva_poliza);
             Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
 
@@ -103,7 +104,7 @@ public class ContratarSeguro extends AppCompatActivity {
                 String[] parts = fila.split(": ");
                 String primera = parts[0];
                 String parte0[] = primera.split(", ");
-                precioSeguro = parte0[2];
+                precioSeguro_escogido_crear_poliza = parte0[2];
                 idSeguro = parts[1];
             }
         });

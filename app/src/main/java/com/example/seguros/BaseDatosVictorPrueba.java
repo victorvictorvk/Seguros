@@ -178,9 +178,12 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
 
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb2_column1, Bd_estructura_victor_prueba.tb2_column3, Bd_estructura_victor_prueba.tb2_column4, Bd_estructura_victor_prueba.tb2_column5, Bd_estructura_victor_prueba.tb2_column6 };
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb2_column1, Bd_estructura_victor_prueba.tb2_column3,
+                Bd_estructura_victor_prueba.tb2_column4, Bd_estructura_victor_prueba.tb2_column5,
+                Bd_estructura_victor_prueba.tb2_column6, Bd_estructura_victor_prueba.tb2_column7 };
         Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb2, columnasARecuperar, Bd_estructura_victor_prueba.tb2_column2 +" = "+ Comercial.dni_cliente_elegido, null, null, null, null);
 
         return cursor;
     }
+
 }

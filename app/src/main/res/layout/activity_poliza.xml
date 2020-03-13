@@ -52,7 +52,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/editTextNumeroRiesgo"
+                android:id="@+id/editTextNumeroRiesgoContratar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"

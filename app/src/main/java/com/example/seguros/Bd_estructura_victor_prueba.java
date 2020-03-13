@@ -64,7 +64,7 @@ public final class Bd_estructura_victor_prueba
             +tb2_column7+ " REAL,"
             +tb2_column8+ " NUMERIC,"
             +tb2_column9+ " INTEGER,"
-            +tb2_column10+ " INTEGER," +
+            +tb2_column10+" INTEGER," +
             "FOREIGN KEY (" +tb2_column1+ ") REFERENCES " +tb1+ " (" +tb1_column1+ "), " +
             "FOREIGN KEY (" +tb2_column2+ ") REFERENCES " +tb3+ " (" +tb3_column1+ "), " +
             "FOREIGN KEY (" +tb2_column3+ ") REFERENCES " +tb4+ " (" +tb4_column1+ "))";

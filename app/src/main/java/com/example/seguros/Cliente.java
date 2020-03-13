@@ -24,8 +24,8 @@ public class Cliente extends AppCompatActivity {
     static String dniCliente, nombreCliente, ape1Cliente, ape2Cliente;
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
-    static String tipo_seguro_escogido, id_poliza_escogida, comentario_escogido, n_reisgo_escogido, descuento_escogido;
-    String tipo_seguro, id_poliza, comentario,n_riesgo, descuento ;
+    static String tipo_seguro_escogido, id_poliza_escogida, comentario_escogido, n_reisgo_escogido, descuento_escogido, precio_escogido;
+    String tipo_seguro, id_poliza, comentario,n_riesgo, descuento , precio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,15 +78,20 @@ public class Cliente extends AppCompatActivity {
                   n_riesgo = c.getString(2);
                   comentario = c.getString(3);
                   descuento = c.getString(4);
+                  precio = c.getString(5);
 
-                btn.setText(tipo_seguro + ";"+id_poliza + ";"+n_riesgo + ";"+comentario + ";"+descuento );
+                btn.setText(tipo_seguro + ";"+id_poliza + ";"+n_riesgo + ";"+comentario + ";"+descuento + ";"+precio);
+
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+
                         tipo_seguro_escogido = tipo_seguro;
                         id_poliza_escogida = id_poliza;
                         comentario_escogido = comentario;
                         n_reisgo_escogido=  n_riesgo;
-                                descuento_escogido = descuento;
+                        descuento_escogido = descuento;
+                        precio_escogido = precio;
+
                         seleccionarPoliza(v);
                     }
                 });
