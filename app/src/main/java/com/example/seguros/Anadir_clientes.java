@@ -1,8 +1,11 @@
 package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +24,10 @@ public class Anadir_clientes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_clientes);
-
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+        MainActivity main = new MainActivity();
+        main.establecerFondo(fondo, prefs);
          dniComercial = Comercial.dniComercial;
 
         EDdniCliente = (EditText) findViewById(R.id.editTextDNICliente);

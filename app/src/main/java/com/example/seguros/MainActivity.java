@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     EditText edPass;
     ConstraintLayout fondo;
     int mDefaultColor;
+    static Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,44 +49,39 @@ public class MainActivity extends AppCompatActivity {
         edPass = (EditText) findViewById(R.id.editTextPass);
         fondo = (ConstraintLayout) findViewById(R.id.fondo);
         mDefaultColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
+        //Fondo f = new Fondo(Fondo.context, fondo);
 
-        establecerFondo();
+        //f.establecerFondo();
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
 
-
+        establecerFondo(fondo, prefs);
     }
 
-    public void establecerFondo() {
+    public void establecerFondo(ConstraintLayout fondoAestablecer, SharedPreferences prefs ) {
         //Leemos el fichero para saber qué color es el que hay que coger.
-        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
-        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
 
         String nombreFondo = prefs.getString("fondo", "nada");
-        mDefaultColor = prefs.getInt("numeroColores", 88888888);
-
-        edUsuario.setText(String.valueOf(mDefaultColor));
+       // mDefaultColor = prefs.getInt("numeroColores", 88888888);
 
         if (nombreFondo.equals("azul")) {
-            fondo.setBackgroundResource(R.mipmap.fondo_azul_3);
+            fondoAestablecer.setBackgroundResource(R.mipmap.fondo_azul_3);
 
         } else if (nombreFondo.equals("amarillo")) {
-            fondo.setBackgroundResource(R.mipmap.fondo_amarillo);
+            fondoAestablecer.setBackgroundResource(R.mipmap.fondo_amarillo);
 
         } else if (nombreFondo.equals("rojo")) {
-            fondo.setBackgroundResource(R.mipmap.fondo_rojo);
+            fondoAestablecer.setBackgroundResource(R.mipmap.fondo_rojo);
         } else if (nombreFondo.equals("personalizado")) {
-            fondo.setBackgroundColor(mDefaultColor);
+            fondoAestablecer.setBackgroundColor(mDefaultColor);
         }
     }
-
     public void menuPopup(View v) {
         ImageView icono = (ImageView) findViewById(R.id.icono);
         PopupMenu menu = new PopupMenu(this, icono);
         menu.getMenuInflater().inflate(R.menu.menu_ociones, menu.getMenu());
-
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 SharedPreferences preferencias = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
                 String nombreFondo = "azul";
@@ -92,48 +89,45 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.MnuOpc1:
                         System.exit(1);
                         break;
-
                     case R.id.SubMnuOpc1:
                         fondo.setBackgroundResource(R.mipmap.fondo_azul_3);
                         nombreFondo = "azul";
                         editor.putString("fondo", nombreFondo);
                         break;
-
                     case R.id.SubMnuOpc2:
                         fondo.setBackgroundResource(R.mipmap.fondo_amarillo);
                         nombreFondo = "amarillo";
                         editor.putString("fondo", nombreFondo);
                         break;
-
                     case R.id.SubMnuOpc3:
                         fondo.setBackgroundResource(R.mipmap.fondo_rojo);
                         nombreFondo = "rojo";
                         editor.putString("fondo", nombreFondo);
                         break;
-
+                        /*
                     case R.id.SubMnuOpc4:
-                        editor.putInt("numeroColores", openColorPicker());
+                        int color = openColorPicker();
+                        editor.putInt("numeroColores", color);
+                        edUsuario.setText(String.valueOf(color));
                         editor.putString("fondo", "personalizado");
                         break;
+
+                         */
                 }
                 editor.commit();
                 return true;
             }
         });
         menu.show();
-
     }
 
     public void mostar(View v) {
         SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
         ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
-
         int colores = prefs.getInt("numeroColores", 0);
-
     }
 
     public int openColorPicker() {
-
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             int mDefaultColor;
             @Override
@@ -185,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             //Le pasamos el id_usuario al intento para poder visualizar o trabajar con sus datos.
             intento.putExtra("comercial", edUsuario.getText().toString());
             startActivity(intento);
+            overridePendingTransition (0,0);
         } else {
 
             Toast.makeText(this, "Usuario o contraseña no encontrados.", Toast.LENGTH_SHORT).show();

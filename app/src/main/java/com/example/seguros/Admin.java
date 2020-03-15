@@ -1,8 +1,11 @@
 package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,7 +30,10 @@ public class Admin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+        MainActivity main = new MainActivity();
+        main.establecerFondo(fondo, prefs);
         crearAdaptadorComercialesChapuza();
         bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura

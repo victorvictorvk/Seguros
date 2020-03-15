@@ -1,8 +1,11 @@
 package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +34,10 @@ public class Cliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente);
-
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+        MainActivity main = new MainActivity();
+        main.establecerFondo(fondo, prefs);
         listaPolizas = (ScrollView) findViewById(R.id.listaPolizas);
         linearlayoutScroll = (LinearLayout) findViewById(R.id.linearLayOutScroll);
 

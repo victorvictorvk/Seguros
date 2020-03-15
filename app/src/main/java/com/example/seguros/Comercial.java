@@ -1,8 +1,11 @@
 package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -24,11 +27,15 @@ public class Comercial extends AppCompatActivity {
     static String dniComercial, dni_cliente_elegido;
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comercial);
-
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+       ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+        MainActivity main = new MainActivity();
+        main.establecerFondo(fondo, prefs);
         //Obtenemos el nombre del comercial para poder trabajar con sus datos
         Bundle bundle = getIntent().getExtras();
         String comercial = bundle.getString("comercial");
@@ -48,6 +55,8 @@ public class Comercial extends AppCompatActivity {
         intento.putExtra("ape1Cliente", ape1);
         intento.putExtra("ape2Cliente", ape2);
         startActivity(intento);
+        overridePendingTransition (0,0);
+
     }
     //Este método hace que se despligue el autocompletTExtview
     public void pulsarFlecha(View v)
@@ -102,6 +111,8 @@ public class Comercial extends AppCompatActivity {
 
         Intent intento = new Intent(this, Anadir_clientes.class);
         startActivity(intento);
+        overridePendingTransition (0,0);
+
     }
 
     @Override

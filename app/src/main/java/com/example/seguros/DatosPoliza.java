@@ -1,7 +1,10 @@
 package com.example.seguros;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +16,10 @@ public class DatosPoliza extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datos_poliza);
+        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
+        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
+        MainActivity main = new MainActivity();
+        main.establecerFondo(fondo, prefs);
         eDNombreSeguro = (EditText) findViewById(R.id.editTextNombreSeguro);
         eDComentario =(EditText) findViewById(R.id.editTextComentarios);
         eDNumeroRiesgo = (EditText) findViewById(R.id.editTextNumeroRiesgoContratar) ;

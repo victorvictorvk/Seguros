@@ -44,6 +44,8 @@ public final class Bd_estructura_victor_prueba
     public static String tb4_column6="pass";
 
 
+
+
     protected static String crear_tb1= "CREATE TABLE " +tb1+ " (" +tb1_column1+ " INTEGER PRIMARY KEY AUTOINCREMENT," +tb1_column2+
             " TEXT," +tb1_column3+ " TEXT," +tb1_column4+ " REAL," +tb1_column5+ " INTEGER)";
 
