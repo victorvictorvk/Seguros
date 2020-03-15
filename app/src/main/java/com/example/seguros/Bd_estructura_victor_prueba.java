@@ -16,9 +16,9 @@ public final class Bd_estructura_victor_prueba
     public static String tb1_column5="activo";
 
     public static String tb2="poliza";
+    public static String tb2_column3="id_poliza";
     public static String tb2_column1="id_seguro";
     public static String tb2_column2="id_cliente";
-    public static String tb2_column3="id_poliza";
     public static String tb2_column4="riesgo";
     public static String tb2_column5="comentario";
     public static String tb2_column6="descuento";
@@ -67,6 +67,6 @@ public final class Bd_estructura_victor_prueba
             +tb2_column10+" INTEGER," +
             "FOREIGN KEY (" +tb2_column1+ ") REFERENCES " +tb1+ " (" +tb1_column1+ "), " +
             "FOREIGN KEY (" +tb2_column2+ ") REFERENCES " +tb3+ " (" +tb3_column1+ "), " +
-            "FOREIGN KEY (" +tb2_column3+ ") REFERENCES " +tb4+ " (" +tb4_column1+ "))";
+            "FOREIGN KEY (" +tb2_column9+ ") REFERENCES " +tb4+ " (" +tb4_column1+ "))";
 
 }

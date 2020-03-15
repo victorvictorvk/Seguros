@@ -140,7 +140,7 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
 
     }
 
-    public ContentValues guardar_poliza(String idSeguro, String idCliente, String riesgo, String comentario, String descuento, String precio, String nifVendedor)
+    public ContentValues guardar_poliza(Integer idSeguro, String idCliente, String riesgo, String comentario, String descuento, String precio, String nifVendedor)
     {
 
 
@@ -186,4 +186,13 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
         return cursor;
     }
 
+    public String dameNombreSeguro(SQLiteDatabase sql, String id_seguro) {
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb1_column2 };
+        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb1, columnasARecuperar, Bd_estructura_victor_prueba.tb1_column1 +" = "+ id_seguro, null, null, null, null);
+        String nombreSeguro = null;
+        while(cursor.moveToNext()){
+             nombreSeguro = cursor.getString(0);
+        }
+        return nombreSeguro;
+    }
 }

@@ -34,20 +34,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView99"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerSeguros"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Buscar seguro" />
-
-            <ImageView
-                android:id="@+id/flechaSeguros"
-                android:layout_width="1dp"
-                android:layout_height="19dp"
-                android:layout_weight="1"
-                android:onClick="desplegarListaSeguros"
-                app:srcCompat="@android:drawable/arrow_down_float" />
+                android:layout_weight="1" />
         </LinearLayout>
 
         <TextView

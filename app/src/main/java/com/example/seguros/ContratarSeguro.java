@@ -3,22 +3,28 @@ package com.example.seguros;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.seguros.Entidades.Seguro;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ContratarSeguro extends AppCompatActivity {
     ListaSeguros claseListaSeguros;
-
-    AutoCompleteTextView autoCompleteTVListaSegurosCliente;
     TextView tvDatosCliente;
     EditText eDNumeroRiesgo, eDComentario, eDDescuento;
     String  comentario, idSeguro;
@@ -27,6 +33,9 @@ public class ContratarSeguro extends AppCompatActivity {
     ImageView  flechaSeguros;
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
+    ArrayList<String> listaSeguros;
+    ArrayList<Seguro> segurosList;
+    Spinner comboSeguros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +46,14 @@ public class ContratarSeguro extends AppCompatActivity {
         eDNumeroRiesgo = (EditText) findViewById(R.id.editTextNumeroRiesgoContratar);
         eDComentario = (EditText) findViewById(R.id.editTextComentario);
         eDDescuento = (EditText) findViewById(R.id.editTextDescuentoContrato);
+        comboSeguros =(Spinner) findViewById(R.id.spinnerSeguros);
 
         flechaSeguros = (ImageView) findViewById(R.id.flechaSeguros);
 
-
-        autoCompleteTVListaSegurosCliente = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView99);
-
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
-        //Ahora indicamos que abra la base de datos en modo lectura y escritura
-        sql = bd.getWritableDatabase();
-
-        claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
-
-        crearAdaptadorSeguros();
-        bd.close();
-        sql.close();
-
+        consultarListaSeguros();
+        ArrayAdapter<CharSequence> adaptador = new ArrayAdapter(this,android.R.layout.simple_spinner_item,
+                listaSeguros);
+        comboSeguros.setAdapter(adaptador);
 
     }
 
@@ -60,13 +61,18 @@ public class ContratarSeguro extends AppCompatActivity {
     public void contratarSeguro(View v)
     {
         //Importante recoger aquí los datos!!! que si no, no los lee
-            comentario = eDComentario.getText().toString();
+
+        int idCombo = (int) comboSeguros.getSelectedItemId();
+
+        comentario = eDComentario.getText().toString();
             numeroRiesgo = Double.valueOf(eDNumeroRiesgo.getText().toString());
             descuento = Double.valueOf(eDDescuento.getText().toString());
 
             bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
             sql = bd.getWritableDatabase();
-            double precioSeguroCalcular = Double.valueOf(precioSeguro_escogido_crear_poliza);
+         int precio_seguro = segurosList.get(idCombo).getPrecio();
+
+        double precioSeguroCalcular = Double.valueOf(precio_seguro);
 
 
              double numeroRiesgoCalcular = 1+((numeroRiesgo)/10);
@@ -74,51 +80,63 @@ public class ContratarSeguro extends AppCompatActivity {
 
             String precioPersonal = String.valueOf((numeroRiesgoCalcular*precioSeguroCalcular)-descuentoCalcular);
 
-
+            int idSeguro = segurosList.get(idCombo).getId_seguro();
            // ContentValues nueva_poliza = bd.guardar_poliza();
 // guardar_poliza(int idSeguro, int idCliente, int riesgo, String comentario, int descuento, Double precio, String nifVendedor)
-
-        ContentValues nueva_poliza = bd.guardar_poliza(idSeguro, Comercial.dni_cliente_elegido, String.valueOf(numeroRiesgo), comentario, String.valueOf(descuento),  precioPersonal, Comercial.dniComercial);
+/*
+        ContentValues nueva_poliza = bd.guardar_poliza( idSeguro, Comercial.dni_cliente_elegido, String.valueOf(numeroRiesgo), comentario, String.valueOf(descuento),  precioPersonal, Comercial.dniComercial);
             bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb2,  nueva_poliza);
-            Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
+ */
+            ContentValues values = new ContentValues();values.put(Bd_estructura_victor_prueba.tb2_column1,idSeguro );
+        values.put(Bd_estructura_victor_prueba.tb2_column1,idSeguro );
+        values.put(Bd_estructura_victor_prueba.tb2_column2,Comercial.dni_cliente_elegido );
+        values.put(Bd_estructura_victor_prueba.tb2_column4,String.valueOf(numeroRiesgo) );
+        values.put(Bd_estructura_victor_prueba.tb2_column5,comentario );
+        values.put(Bd_estructura_victor_prueba.tb2_column6, String.valueOf(descuento) );
+        values.put(Bd_estructura_victor_prueba.tb2_column7,precioPersonal );
+        values.put(Bd_estructura_victor_prueba.tb2_column8, String.valueOf(new Date()));
+        values.put(Bd_estructura_victor_prueba.tb2_column9,Comercial.dniComercial );
+        values.put(Bd_estructura_victor_prueba.tb2_column10, 1 );
 
+        Long idResultante = sql.insert(Bd_estructura_victor_prueba.tb2, Bd_estructura_victor_prueba.tb2_column3, values);
+
+            Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
             bd.close();
             sql.close();
-
     }
 
+    public void consultarListaSeguros(){
+        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        sql = bd.getReadableDatabase();
+        Seguro s = null;
+        segurosList = new ArrayList<Seguro>();
+        Cursor c = sql.rawQuery("Select * from "+ Bd_estructura_victor_prueba.tb1, null);
 
-    private void crearAdaptadorSeguros() {
+        while(c.moveToNext())
+        {
+            s = new Seguro();
+            s.setId_seguro(c.getInt(0));
+            s.setTipo_seguro(c.getString(1));
+            s.setCobertura(c.getString(2));
+            s.setPrecio(c.getInt(3));
+            s.setActivo(c.getInt(4));
 
+            Log.i("id_seguro", s.getId_seguro().toString());
+            Log.i("tipo_seguro", s.getTipo_seguro());
+            Log.i("cobertura_seguro", s.getCobertura());
+            Log.i("precio_seguro", s.getPrecio().toString());
+            Log.i("activo_seguro", s.getActivo().toString());
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
-                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, claseListaSeguros.listaSeguros());
-        autoCompleteTVListaSegurosCliente.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
-        autoCompleteTVListaSegurosCliente.setAdapter(adapter2);
-
-        autoCompleteTVListaSegurosCliente.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String fila =  parent.getItemAtPosition(position).toString();
-
-                String[] parts = fila.split(": ");
-                String primera = parts[0];
-                String parte0[] = primera.split(", ");
-                precioSeguro_escogido_crear_poliza = parte0[2];
-                idSeguro = parts[1];
-            }
-        });
+            segurosList.add(s);
+        }
+        obtenerLista();
     }
-    public void desplegarListaSeguros(View v) {
-        ListaSeguros claseListaSeguros;
 
-        claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
-
-        //Creamos un adapter para poder mostrar el nombre de los comerciales e incluirlo en el desplegable
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, claseListaSeguros.listaSeguros());
-        autoCompleteTVListaSegurosCliente.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
-        autoCompleteTVListaSegurosCliente.setAdapter(adapter);
-        autoCompleteTVListaSegurosCliente.showDropDown();
+    private void obtenerLista() {
+        listaSeguros = new ArrayList<String>();
+        for (int i = 0; i < segurosList.size(); i++){
+            listaSeguros.add(segurosList.get(i).getId_seguro()+" - " +segurosList.get(i).getTipo_seguro()
+            +" - "+ segurosList.get(i).getPrecio() );
+        }
     }
 }

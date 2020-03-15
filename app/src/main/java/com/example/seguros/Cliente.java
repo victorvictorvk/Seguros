@@ -24,8 +24,9 @@ public class Cliente extends AppCompatActivity {
     static String dniCliente, nombreCliente, ape1Cliente, ape2Cliente;
     public SQLiteDatabase sql;
     public BaseDatosVictorPrueba bd;
-    static String tipo_seguro_escogido, id_poliza_escogida, comentario_escogido, n_reisgo_escogido, descuento_escogido, precio_escogido;
-    String tipo_seguro, id_poliza, comentario,n_riesgo, descuento , precio;
+    //static String id_seguro_escogido,nombre_seguro_escogido, id_poliza_escogida, comentario_escogido, n_reisgo_escogido, descuento_escogido, precio_escogido;
+    //String id_seguro, id_poliza, comentario,n_riesgo, descuento , precio;
+    Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,29 +71,24 @@ public class Cliente extends AppCompatActivity {
             //Recorremos el cursor hasta que no haya más registros
             do {
                 linearlayoutScroll.setOrientation(LinearLayout.VERTICAL);
-                Button btn = new Button(this);
+                btn = new Button(this);
 
-                tipo_seguro = c.getString(0);
-                  id_poliza = c.getString(1);
+                final String  id_seguro = c.getString(0);
+                final String  id_poliza = c.getString(1);
 
-                  n_riesgo = c.getString(2);
-                  comentario = c.getString(3);
-                  descuento = c.getString(4);
-                  precio = c.getString(5);
+                final String n_riesgo = c.getString(2);
+                final String comentario = c.getString(3);
+                final String descuento = c.getString(4);
+                final String  precio = c.getString(5);
 
-                btn.setText(tipo_seguro + ";"+id_poliza + ";"+n_riesgo + ";"+comentario + ";"+descuento + ";"+precio);
+               final String nombre_seguro_escogido =   bd.dameNombreSeguro(sql, id_seguro);
+                btn.setText(nombre_seguro_escogido + ";"+id_poliza + ";"+n_riesgo + ";"+comentario + ";"+descuento + ";"+precio);
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        tipo_seguro_escogido = tipo_seguro;
-                        id_poliza_escogida = id_poliza;
-                        comentario_escogido = comentario;
-                        n_reisgo_escogido=  n_riesgo;
-                        descuento_escogido = descuento;
-                        precio_escogido = precio;
-
-                        seleccionarPoliza(v);
+                        seleccionarPoliza(nombre_seguro_escogido,comentario,n_riesgo,descuento, precio);
+                        //seleccionarPoliza(v);
                     }
                 });
 
@@ -100,7 +96,6 @@ public class Cliente extends AppCompatActivity {
                 linearlayoutScroll.addView(btn);
             } while (c.moveToNext());
             addLineSeperator();
-
         }
         bd.close();
         sql.close();
@@ -127,11 +122,21 @@ public class Cliente extends AppCompatActivity {
 
          */
     }
-public void seleccionarPoliza(View v)
-{
-    //Cambiar esto cuando tengamos conexion a base de datos.
+
+    private void seleccionarPoliza(String nombre_seguro_escogido, String comentario_escogido, String n_reisgo_escogido, String descuento_escogido, String precio_escogido) {
+        //Cambiar esto cuando tengamos conexion a base de datos.
         Intent intento = new Intent(this, DatosPoliza.class);
-    //intento.putExtra("comercial", idCliente.getText().toString());
+        intento.putExtra("nombre_seguro_escogido",nombre_seguro_escogido );
+        intento.putExtra("comentario_escogido", comentario_escogido);
+        intento.putExtra("n_reisgo_escogido", n_reisgo_escogido);
+        intento.putExtra("descuento_escogido",descuento_escogido );
+        intento.putExtra("precio_escogido", precio_escogido);
+        startActivity(intento);
+    }
+
+    public void seleccionarPoliza(View v)
+{
+        Intent intento = new Intent(this, DatosPoliza.class);
     startActivity(intento);
 }
 
