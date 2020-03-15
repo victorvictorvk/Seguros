@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         establecerFondo();
 
+
     }
 
     public void establecerFondo() {
@@ -56,9 +58,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
         ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
 
-        String nombreFondo = prefs.getString("fondo", "personalizado");
-        mDefaultColor = prefs.getInt("numeroColores", 0);
+        String nombreFondo = prefs.getString("fondo", "nada");
+        mDefaultColor = prefs.getInt("numeroColores", 88888888);
 
+        edUsuario.setText(String.valueOf(mDefaultColor));
 
         if (nombreFondo.equals("azul")) {
             fondo.setBackgroundResource(R.mipmap.fondo_azul_3);
@@ -133,17 +136,15 @@ public class MainActivity extends AppCompatActivity {
 
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             int mDefaultColor;
-            //Pepito
-
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-
             }
-
             @Override
+            //Establezco el fondo
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 mDefaultColor = color;
                 fondo.setBackgroundColor(mDefaultColor);
+
             }
         });
         colorPicker.show();
@@ -161,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
     //Para recuperar los datos si volvemos a poner la App en primer plano
     public void onRestoreInstanceState(Bundle estado) {
         super.onRestoreInstanceState(estado);
-        edUsuario.setText("hh");
-        edPass.setText("hpass");
+        edUsuario.setText("");
+        edPass.setText("");
 
     }
 
