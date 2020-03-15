@@ -195,4 +195,26 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
         }
         return nombreSeguro;
     }
+
+    public boolean existeCliente(SQLiteDatabase sql, String dni) {
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb3_column1 };
+        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb3, columnasARecuperar, null, null, null, null, null);
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(dni)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean existeComercial(SQLiteDatabase sql, String dni) {
+        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1 };
+        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(dni)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

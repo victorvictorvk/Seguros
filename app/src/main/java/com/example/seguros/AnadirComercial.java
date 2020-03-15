@@ -43,8 +43,6 @@ public class AnadirComercial extends AppCompatActivity {
 
     public void anadirComercial(View v)
     {
-
-
             String dni = dniComercial.getText().toString();
             String nombre = nombreComercial.getText().toString();
             String apellido1 = ape1Comercial.getText().toString();
@@ -60,6 +58,9 @@ public class AnadirComercial extends AppCompatActivity {
                 bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
                 //Ahora indicamos que abra la base de datos en modo lectura y escritura
                 sql = bd.getWritableDatabase();
+                if(!bd.existeComercial(sql, dni))
+                {
+
 
                 ContentValues registronuevo  = new ContentValues();
                 registronuevo.put(Bd_estructura_victor_prueba.tb4_column1, dni);
@@ -82,12 +83,14 @@ public class AnadirComercial extends AppCompatActivity {
                 bd.close();
 
                 Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Este DNI ya existe! Elige otro!", Toast.LENGTH_SHORT).show();
 
+                }
             } else
             {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
             }
-        finish();
 
     }
 

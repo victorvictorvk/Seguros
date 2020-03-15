@@ -35,7 +35,6 @@ public class Cliente extends AppCompatActivity {
         listaPolizas = (ScrollView) findViewById(R.id.listaPolizas);
         linearlayoutScroll = (LinearLayout) findViewById(R.id.linearLayOutScroll);
 
-        establecerScrollViewPolizas();
 
         Bundle bundle = getIntent().getExtras();
 
@@ -82,7 +81,7 @@ public class Cliente extends AppCompatActivity {
                 final String  precio = c.getString(5);
 
                final String nombre_seguro_escogido =   bd.dameNombreSeguro(sql, id_seguro);
-                btn.setText(nombre_seguro_escogido + ";"+id_poliza + ";"+n_riesgo + ";"+comentario + ";"+descuento + ";"+precio);
+                btn.setText(nombre_seguro_escogido + "; "+comentario + "; "+ precio+"€");
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -177,5 +176,14 @@ public class Cliente extends AppCompatActivity {
     public void pasarActividadContratarSeguro (View v) {
         Intent intento = new Intent(this, ContratarSeguro.class);
         startActivity(intento);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        linearlayoutScroll.removeAllViews();
+
+        establecerScrollViewPolizas();
+
     }
 }

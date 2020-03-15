@@ -38,39 +38,6 @@ public class Comercial extends AppCompatActivity {
         linearlayoutScroll = (LinearLayout) findViewById(R.id.linearLayOutScroll);
 
         ImageView flecha = (ImageView)findViewById(R.id.flecha);
-        editText = findViewById(R.id.autoCompleteTextView99);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, dameArray());
-        editText.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
-
-
-        editText.setAdapter(adapter);
-
-        //A este autocompletTV le añadimos un escuchador, el cual cambiará de actividad cuando hagamos clic en algun elemento
-        editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Esta sentencia me devuelve el string seleccionado
-                //String dniComercial = parent.getItemAtPosition(position).toString();
-
-                String fila =  parent.getItemAtPosition(position).toString();
-
-                String dnif = null;
-                String nombref = null;
-                String ape1f = null;
-                String ape2f = null;
-
-                String[] parts = fila.split(": ");
-                String primera = parts[0];
-                String parte0[] = primera.split(", ");
-                nombref = parte0[0];
-                ape1f = parte0[1];
-                ape2f = parte0[2];
-                dnif = parts[1];
-                dni_cliente_elegido = dnif;
-                cambiarActividadDatosCliente(dni_cliente_elegido, nombref, ape1f, ape2f);
-            }
-        });
     }
 
     public void cambiarActividadDatosCliente(String dni, String nombre, String ape1, String ape2)
@@ -88,6 +55,8 @@ public class Comercial extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, dameArray());
         editText.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
+        editText.setAdapter(adapter);
+
         editText.showDropDown();
     }
 
@@ -133,5 +102,44 @@ public class Comercial extends AppCompatActivity {
 
         Intent intento = new Intent(this, Anadir_clientes.class);
         startActivity(intento);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        editText = findViewById(R.id.autoCompleteTextView99);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, dameArray());
+        editText.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
+
+
+        editText.setAdapter(adapter);
+
+        //A este autocompletTV le añadimos un escuchador, el cual cambiará de actividad cuando hagamos clic en algun elemento
+        editText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Esta sentencia me devuelve el string seleccionado
+                //String dniComercial = parent.getItemAtPosition(position).toString();
+
+                String fila =  parent.getItemAtPosition(position).toString();
+
+                String dnif = null;
+                String nombref = null;
+                String ape1f = null;
+                String ape2f = null;
+
+                String[] parts = fila.split(": ");
+                String primera = parts[0];
+                String parte0[] = primera.split(", ");
+                nombref = parte0[0];
+                ape1f = parte0[1];
+                ape2f = parte0[2];
+                dnif = parts[1];
+                dni_cliente_elegido = dnif;
+                cambiarActividadDatosCliente(dni_cliente_elegido, nombref, ape1f, ape2f);
+            }
+        });
+
     }
 }

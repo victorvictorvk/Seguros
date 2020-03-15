@@ -35,7 +35,7 @@ public class Anadir_clientes extends AppCompatActivity {
     {
         if(!EDdniCliente.getText().toString().isEmpty() && !EDnombreCliente.getText().toString().isEmpty()
         && !EDape1Cliente.getText().toString().isEmpty() && !EDape2Cliente.getText().toString().isEmpty()) {
-            //Abrimos coneciones:
+            //Abrimos conexiones:
             bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
             //Ahora indicamos que abra la base de datos en modo lectura y escritura
             sql = bd.getWritableDatabase();
@@ -45,18 +45,23 @@ public class Anadir_clientes extends AppCompatActivity {
             String nombre = EDnombreCliente.getText().toString();
             String ape1 = EDape1Cliente.getText().toString();
             String ape2 = EDape2Cliente.getText().toString();
+            if( !bd.existeCliente(sql, dni)) {
 
-            ContentValues nuevo_cliente = bd.guardar_cliente(dni, nombre, ape1, ape2, dniComercial);
-            bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb3, nuevo_cliente);
+                ContentValues nuevo_cliente = bd.guardar_cliente(dni, nombre, ape1, ape2, dniComercial);
+                bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb3, nuevo_cliente);
 
-            EDdniCliente.setText("");
-            EDnombreCliente.setText("");
-            EDape1Cliente.setText("");
-            EDape2Cliente.setText("");
-            Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
+                EDdniCliente.setText("");
+                EDnombreCliente.setText("");
+                EDape1Cliente.setText("");
+                EDape2Cliente.setText("");
+                Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
 
-            sql.close();
-            bd.close();
+                sql.close();
+                bd.close();
+            } else {
+                Toast.makeText(this, "Este DNI ya existe! Elige otro!", Toast.LENGTH_SHORT).show();
+
+            }
         } else {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
 

@@ -52,16 +52,6 @@ public class AnadirSeguros extends AppCompatActivity {
             //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
             ContentValues nuevo_seguro = bd.guardar_seguro(tipoDeSeguro, coberturaSeguro, numero);
 
-            /*
-            ContentValues nuevo_seguro= new ContentValues();
-            nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column2, tipoDeSeguro);
-            nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column3, coberturaSeguro);
-            nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column4, numero);
-            nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column5, 1);
-
-             */
-
-            //Llamamos al metodo que inserta el content en la base de datos.
             bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb1,  nuevo_seguro);
             //sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
 

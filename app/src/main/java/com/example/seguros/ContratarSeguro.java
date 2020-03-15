@@ -61,48 +61,67 @@ public class ContratarSeguro extends AppCompatActivity {
     public void contratarSeguro(View v)
     {
         //Importante recoger aquí los datos!!! que si no, no los lee
+        comentario = eDComentario.getText().toString();
+
+        if(!comentario.isEmpty() && !eDNumeroRiesgo.getText().toString().isEmpty() && !eDDescuento.getText().toString().isEmpty())
+        {
+
 
         int idCombo = (int) comboSeguros.getSelectedItemId();
 
-        comentario = eDComentario.getText().toString();
             numeroRiesgo = Double.valueOf(eDNumeroRiesgo.getText().toString());
             descuento = Double.valueOf(eDDescuento.getText().toString());
 
-            bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
-            sql = bd.getWritableDatabase();
-         int precio_seguro = segurosList.get(idCombo).getPrecio();
+            if(numeroRiesgo <10 && numeroRiesgo>0 ) {
+                if(descuento <100 && descuento>0 ) {
 
-        double precioSeguroCalcular = Double.valueOf(precio_seguro);
+                    bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+                    sql = bd.getWritableDatabase();
+                    int precio_seguro = segurosList.get(idCombo).getPrecio();
+
+                    double precioSeguroCalcular = Double.valueOf(precio_seguro);
 
 
-             double numeroRiesgoCalcular = 1+((numeroRiesgo)/10);
-            double descuentoCalcular = (descuento*precioSeguroCalcular)/100;
+                    double numeroRiesgoCalcular = 1 + ((numeroRiesgo) / 10);
+                    double descuentoCalcular = (descuento * precioSeguroCalcular) / 100;
 
-            String precioPersonal = String.valueOf((numeroRiesgoCalcular*precioSeguroCalcular)-descuentoCalcular);
+                    String precioPersonal = String.valueOf((numeroRiesgoCalcular * precioSeguroCalcular) - descuentoCalcular);
 
-            int idSeguro = segurosList.get(idCombo).getId_seguro();
-           // ContentValues nueva_poliza = bd.guardar_poliza();
+                    int idSeguro = segurosList.get(idCombo).getId_seguro();
+                    // ContentValues nueva_poliza = bd.guardar_poliza();
 // guardar_poliza(int idSeguro, int idCliente, int riesgo, String comentario, int descuento, Double precio, String nifVendedor)
 /*
         ContentValues nueva_poliza = bd.guardar_poliza( idSeguro, Comercial.dni_cliente_elegido, String.valueOf(numeroRiesgo), comentario, String.valueOf(descuento),  precioPersonal, Comercial.dniComercial);
             bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb2,  nueva_poliza);
  */
-            ContentValues values = new ContentValues();values.put(Bd_estructura_victor_prueba.tb2_column1,idSeguro );
-        values.put(Bd_estructura_victor_prueba.tb2_column1,idSeguro );
-        values.put(Bd_estructura_victor_prueba.tb2_column2,Comercial.dni_cliente_elegido );
-        values.put(Bd_estructura_victor_prueba.tb2_column4,String.valueOf(numeroRiesgo) );
-        values.put(Bd_estructura_victor_prueba.tb2_column5,comentario );
-        values.put(Bd_estructura_victor_prueba.tb2_column6, String.valueOf(descuento) );
-        values.put(Bd_estructura_victor_prueba.tb2_column7,precioPersonal );
-        values.put(Bd_estructura_victor_prueba.tb2_column8, String.valueOf(new Date()));
-        values.put(Bd_estructura_victor_prueba.tb2_column9,Comercial.dniComercial );
-        values.put(Bd_estructura_victor_prueba.tb2_column10, 1 );
+                    ContentValues values = new ContentValues();
+                    values.put(Bd_estructura_victor_prueba.tb2_column1, idSeguro);
+                    values.put(Bd_estructura_victor_prueba.tb2_column1, idSeguro);
+                    values.put(Bd_estructura_victor_prueba.tb2_column2, Comercial.dni_cliente_elegido);
+                    values.put(Bd_estructura_victor_prueba.tb2_column4, String.valueOf(numeroRiesgo));
+                    values.put(Bd_estructura_victor_prueba.tb2_column5, comentario);
+                    values.put(Bd_estructura_victor_prueba.tb2_column6, String.valueOf(descuento));
+                    values.put(Bd_estructura_victor_prueba.tb2_column7, precioPersonal);
+                    values.put(Bd_estructura_victor_prueba.tb2_column8, String.valueOf(new Date()));
+                    values.put(Bd_estructura_victor_prueba.tb2_column9, Comercial.dniComercial);
+                    values.put(Bd_estructura_victor_prueba.tb2_column10, 1);
 
-        Long idResultante = sql.insert(Bd_estructura_victor_prueba.tb2, Bd_estructura_victor_prueba.tb2_column3, values);
+                    Long idResultante = sql.insert(Bd_estructura_victor_prueba.tb2, Bd_estructura_victor_prueba.tb2_column3, values);
 
-            Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
-            bd.close();
-            sql.close();
+                    Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
+                    bd.close();
+                    sql.close();
+                } else {
+                    Toast.makeText(this, "EL % de riesgo tiene que estar en 1 y 99", Toast.LENGTH_SHORT).show();
+                }
+                } else {
+                Toast.makeText(this, "EL número de riesgo tiene que estar en 1 y 9", Toast.LENGTH_SHORT).show();
+
+            }
+        } else {
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public void consultarListaSeguros(){
