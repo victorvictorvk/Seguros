@@ -95,7 +95,7 @@ public class Cliente extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        seleccionarPoliza(nombre_seguro_escogido,comentario,n_riesgo,descuento, precio);
+                        seleccionarPoliza(nombre_seguro_escogido,comentario,n_riesgo,descuento, precio, id_poliza);
                         //seleccionarPoliza(v);
                     }
                 });
@@ -131,7 +131,7 @@ public class Cliente extends AppCompatActivity {
          */
     }
 
-    private void seleccionarPoliza(String nombre_seguro_escogido, String comentario_escogido, String n_reisgo_escogido, String descuento_escogido, String precio_escogido) {
+    private void seleccionarPoliza(String nombre_seguro_escogido, String comentario_escogido, String n_reisgo_escogido, String descuento_escogido, String precio_escogido, String poliza) {
         //Cambiar esto cuando tengamos conexion a base de datos.
         Intent intento = new Intent(this, DatosPoliza.class);
         intento.putExtra("nombre_seguro_escogido",nombre_seguro_escogido );
@@ -139,6 +139,8 @@ public class Cliente extends AppCompatActivity {
         intento.putExtra("n_reisgo_escogido", n_reisgo_escogido);
         intento.putExtra("descuento_escogido",descuento_escogido );
         intento.putExtra("precio_escogido", precio_escogido);
+        intento.putExtra("poliza_escogida", poliza);
+
         startActivity(intento);
     }
 
