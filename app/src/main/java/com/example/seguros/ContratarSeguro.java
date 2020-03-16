@@ -11,9 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,7 +33,7 @@ public class ContratarSeguro extends AppCompatActivity {
     double numeroRiesgo,descuento;
     ImageView  flechaSeguros;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     ArrayList<String> listaSeguros;
     ArrayList<Seguro> segurosList;
     Spinner comboSeguros;
@@ -81,7 +79,7 @@ public class ContratarSeguro extends AppCompatActivity {
             if(numeroRiesgo <10 && numeroRiesgo>0 ) {
                 if(descuento <100 && descuento>0 ) {
 
-                    bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+                    bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
                     sql = bd.getWritableDatabase();
                     int precio_seguro = segurosList.get(idCombo).getPrecio();
 
@@ -98,21 +96,21 @@ public class ContratarSeguro extends AppCompatActivity {
 // guardar_poliza(int idSeguro, int idCliente, int riesgo, String comentario, int descuento, Double precio, String nifVendedor)
 /*
         ContentValues nueva_poliza = bd.guardar_poliza( idSeguro, Comercial.dni_cliente_elegido, String.valueOf(numeroRiesgo), comentario, String.valueOf(descuento),  precioPersonal, Comercial.dniComercial);
-            bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb2,  nueva_poliza);
+            bd.insertar_valores(sql, Bd_estructura_VVS.tb2,  nueva_poliza);
  */
                     ContentValues values = new ContentValues();
-                    values.put(Bd_estructura_victor_prueba.tb2_column1, idSeguro);
-                    values.put(Bd_estructura_victor_prueba.tb2_column1, idSeguro);
-                    values.put(Bd_estructura_victor_prueba.tb2_column2, Comercial.dni_cliente_elegido);
-                    values.put(Bd_estructura_victor_prueba.tb2_column4, String.valueOf(numeroRiesgo));
-                    values.put(Bd_estructura_victor_prueba.tb2_column5, comentario);
-                    values.put(Bd_estructura_victor_prueba.tb2_column6, String.valueOf(descuento));
-                    values.put(Bd_estructura_victor_prueba.tb2_column7, precioPersonal);
-                    values.put(Bd_estructura_victor_prueba.tb2_column8, String.valueOf(new Date()));
-                    values.put(Bd_estructura_victor_prueba.tb2_column9, Comercial.dniComercial);
-                    values.put(Bd_estructura_victor_prueba.tb2_column10, 1);
+                    values.put(Bd_estructura_VVS.tb2_column1, idSeguro);
+                    values.put(Bd_estructura_VVS.tb2_column1, idSeguro);
+                    values.put(Bd_estructura_VVS.tb2_column2, Comercial.dni_cliente_elegido);
+                    values.put(Bd_estructura_VVS.tb2_column4, String.valueOf(numeroRiesgo));
+                    values.put(Bd_estructura_VVS.tb2_column5, comentario);
+                    values.put(Bd_estructura_VVS.tb2_column6, String.valueOf(descuento));
+                    values.put(Bd_estructura_VVS.tb2_column7, precioPersonal);
+                    values.put(Bd_estructura_VVS.tb2_column8, String.valueOf(new Date()));
+                    values.put(Bd_estructura_VVS.tb2_column9, Comercial.dniComercial);
+                    values.put(Bd_estructura_VVS.tb2_column10, 1);
 
-                    Long idResultante = sql.insert(Bd_estructura_victor_prueba.tb2, Bd_estructura_victor_prueba.tb2_column3, values);
+                    Long idResultante = sql.insert(Bd_estructura_VVS.tb2, Bd_estructura_VVS.tb2_column3, values);
 
                     Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
                     bd.close();
@@ -131,11 +129,11 @@ public class ContratarSeguro extends AppCompatActivity {
     }
 
     public void consultarListaSeguros(){
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
         Seguro s = null;
         segurosList = new ArrayList<Seguro>();
-        Cursor c = sql.rawQuery("Select * from "+ Bd_estructura_victor_prueba.tb1, null);
+        Cursor c = sql.rawQuery("Select * from "+ Bd_estructura_VVS.tb1, null);
 
         while(c.moveToNext())
         {

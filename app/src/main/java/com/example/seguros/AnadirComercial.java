@@ -1,6 +1,5 @@
 package com.example.seguros;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -8,8 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,7 @@ public class AnadirComercial extends AppCompatActivity {
     private EditText dniComercial, nombreComercial, ape1Comercial, ape2Comercial, pass;
     private Button botonAnadirComercial;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class AnadirComercial extends AppCompatActivity {
 
         /*
         //Abrimos la base de datos
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
 
         sql = bd.getWritableDatabase();
@@ -56,30 +53,26 @@ public class AnadirComercial extends AppCompatActivity {
             String apellido2 = ape2Comercial.getText().toString();
             String passComercial  = pass.getText().toString();
 
-            if(!dni.isEmpty() && !nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty())
+            if( !dni.isEmpty() && !nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty())
             {
                 //Cremos un objeto de tipo ContentValues que le llamamos registro y le metemos todos los datos que queremos introducir
                 //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
                 //ContentValues registro = bd.guardar_vendedor(dni, nombre, apellido1, apellido2, passComercial);
 
-                bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+                bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
                 //Ahora indicamos que abra la base de datos en modo lectura y escritura
                 sql = bd.getWritableDatabase();
                 if(!bd.existeComercial(sql, dni))
                 {
-
-
                 ContentValues registronuevo  = new ContentValues();
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column1, dni);
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column2, nombre);
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column3, apellido1);
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column4, apellido2);
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column6, passComercial);
+                registronuevo.put(Bd_estructura_VVS.tb4_column1, dni);
+                registronuevo.put(Bd_estructura_VVS.tb4_column2, nombre);
+                registronuevo.put(Bd_estructura_VVS.tb4_column3, apellido1);
+                registronuevo.put(Bd_estructura_VVS.tb4_column4, apellido2);
+                registronuevo.put(Bd_estructura_VVS.tb4_column6, passComercial);
 
-                registronuevo.put(Bd_estructura_victor_prueba.tb4_column5, 1);
-                //Llamamos al metodo que inserta el content en la base de datos.
-                //bd.insertar_valores(Bd_estructura_victor_prueba.tb4,  registro);
-                sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
+                registronuevo.put(Bd_estructura_VVS.tb4_column5, 1);
+                sql.insert(Bd_estructura_VVS.tb4, null, registronuevo);
 
                 dniComercial.setText("");
                 nombreComercial.setText("");
@@ -92,13 +85,11 @@ public class AnadirComercial extends AppCompatActivity {
                 Toast.makeText(this, "El registro se añadió", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Este DNI ya existe! Elige otro!", Toast.LENGTH_SHORT).show();
-
                 }
             } else
             {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
             }
-
     }
 
         public void anadirComercialV2(View v)
@@ -114,10 +105,10 @@ public class AnadirComercial extends AppCompatActivity {
                 //Cremos un objeto de tipo ContentValues que le llamamos registro y le metemos todos los datos que queremos introducir
                 //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
                 ContentValues registronuevo = bd.guardar_vendedor(dni, nombre, apellido1, apellido2, passComercial);
-                //registronuevo.put(Bd_estructura_victor_prueba.tb4_column5, 1);
+                //registronuevo.put(Bd_estructura_VVS.tb4_column5, 1);
                 //Llamamos al metodo que inserta el content en la base de datos.
-                bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb4,  registronuevo);
-                //sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
+                bd.insertar_valores(sql, Bd_estructura_VVS.tb4,  registronuevo);
+                //sql.insert(Bd_estructura_VVS.tb4, null, registronuevo);
                 sql.close();
                 dniComercial.setText("");
                 nombreComercial.setText("");

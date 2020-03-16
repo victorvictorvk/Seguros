@@ -21,7 +21,7 @@ public class Admin extends AppCompatActivity {
     AutoCompleteTextView aCTtVListaComerciales, autoCompleteTVListaSeguros;
     ImageView flechaComerciales, flechaSeguros;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     String dni, nombre, ape1, ape2;
     ArrayList<String> arrayMostrarComerciales;
     ArrayList<ArrayList<String>> arrayComerciales, arraySeguros;
@@ -35,7 +35,7 @@ public class Admin extends AppCompatActivity {
         MainActivity main = new MainActivity();
         main.establecerFondo(fondo, prefs);
         crearAdaptadorComercialesChapuza();
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
         sql = bd.getWritableDatabase();
         claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
@@ -177,7 +177,7 @@ public class Admin extends AppCompatActivity {
     public ArrayList<ArrayList<String>> listaComerciales() {
 
        // Abrimos la base de datos
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que esa apertura se en modo lectura y escritura
         sql = bd.getReadableDatabase();
         //Creamos el array vacío
@@ -220,7 +220,7 @@ public class Admin extends AppCompatActivity {
     }
 
     public ArrayList<String> arrayChapucero() {
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
         ArrayList<String> array = new ArrayList<String>();
 
@@ -264,7 +264,7 @@ public class Admin extends AppCompatActivity {
      */
     public ArrayList<String> listaSeguros() {
 
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
         ArrayList<String> array = new ArrayList<>();
         //Aqui hacemos una consulta a la base de datos.

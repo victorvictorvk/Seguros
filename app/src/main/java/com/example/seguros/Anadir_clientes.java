@@ -18,7 +18,7 @@ public class Anadir_clientes extends AppCompatActivity {
     EditText EDdniCliente, EDnombreCliente, EDape1Cliente, EDape2Cliente;
     Button botonAnadirCliente;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     String dniComercial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class Anadir_clientes extends AppCompatActivity {
         if(!EDdniCliente.getText().toString().isEmpty() && !EDnombreCliente.getText().toString().isEmpty()
         && !EDape1Cliente.getText().toString().isEmpty() && !EDape2Cliente.getText().toString().isEmpty()) {
             //Abrimos conexiones:
-            bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+            bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
             //Ahora indicamos que abra la base de datos en modo lectura y escritura
             sql = bd.getWritableDatabase();
 
@@ -54,7 +54,7 @@ public class Anadir_clientes extends AppCompatActivity {
             if( !bd.existeCliente(sql, dni)) {
 
                 ContentValues nuevo_cliente = bd.guardar_cliente(dni, nombre, ape1, ape2, dniComercial);
-                bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb3, nuevo_cliente);
+                bd.insertar_valores(sql, Bd_estructura_VVS.tb3, nuevo_cliente);
 
                 EDdniCliente.setText("");
                 EDnombreCliente.setText("");

@@ -26,7 +26,7 @@ public class Comercial extends AppCompatActivity {
     //Creamos una variable estática para que se pueda acceder desde varias clases.
     static String dniComercial, dni_cliente_elegido;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class Comercial extends AppCompatActivity {
         /*
         Tenemos que hacer una consulta a la base de datos
         */
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
         sql = bd.getWritableDatabase();
         ArrayList<String> array = new ArrayList<String>();

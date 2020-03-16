@@ -17,8 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 public class Cliente extends AppCompatActivity {
     LinearLayout linearlayoutScroll;
@@ -26,7 +25,7 @@ public class Cliente extends AppCompatActivity {
     EditText edDNI, eDNombre, eDApe1, eDApe2;
     static String dniCliente, nombreCliente, ape1Cliente, ape2Cliente;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     //static String id_seguro_escogido,nombre_seguro_escogido, id_poliza_escogida, comentario_escogido, n_reisgo_escogido, descuento_escogido, precio_escogido;
     //String id_seguro, id_poliza, comentario,n_riesgo, descuento , precio;
     Button btn;
@@ -64,7 +63,7 @@ public class Cliente extends AppCompatActivity {
 
     }
     private void establecerScrollViewPolizas() {
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que abra la base de datos en modo lectura y escritura
         sql = bd.getWritableDatabase();
         //Consulta
@@ -180,8 +179,21 @@ public class Cliente extends AppCompatActivity {
         linearlayoutScroll.addView(lineLayout);
     }
     public void pasarActividadContratarSeguro (View v) {
+        //Aquí debemos hacer una comprobación para saber si existe algun seguro.
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        //Ahora indicamos que abra la base de datos en modo lectura y escritura
+        sql = bd.getWritableDatabase();
+        Cursor cursor = bd.listaSeguros(sql);
+        boolean existen = false;
+        while(cursor.moveToNext()){
+            existen = true;
+            }
+        if ( existen ){
         Intent intento = new Intent(this, ContratarSeguro.class);
         startActivity(intento);
+        } else {
+            Toast.makeText(this, "No existe ningún seguro. Dile al administrador que los cree.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

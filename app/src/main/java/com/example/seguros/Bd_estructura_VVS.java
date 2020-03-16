@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 import androidx.annotation.Nullable;
 
-public final class Bd_estructura_victor_prueba
+public final class Bd_estructura_VVS
 {
 
     public static String tb1="seguro";
@@ -43,8 +43,12 @@ public final class Bd_estructura_victor_prueba
     public static String tb4_column5="activo";
     public static String tb4_column6="pass";
 
+    public static String tb5="administracion";
+    public static String tb5_column1="nif_admin";
+    public static String tb5_column2="pass_admin";
 
-
+    protected static String crear_tb5= "CREATE TABLE " +tb5+ " (" +tb5_column1+ " TEXT PRIMARY KEY," +tb5_column2+
+            " TEXT)";
 
     protected static String crear_tb1= "CREATE TABLE " +tb1+ " (" +tb1_column1+ " INTEGER PRIMARY KEY AUTOINCREMENT," +tb1_column2+
             " TEXT," +tb1_column3+ " TEXT," +tb1_column4+ " REAL," +tb1_column5+ " INTEGER)";
@@ -70,5 +74,7 @@ public final class Bd_estructura_victor_prueba
             "FOREIGN KEY (" +tb2_column1+ ") REFERENCES " +tb1+ " (" +tb1_column1+ "), " +
             "FOREIGN KEY (" +tb2_column2+ ") REFERENCES " +tb3+ " (" +tb3_column1+ "), " +
             "FOREIGN KEY (" +tb2_column9+ ") REFERENCES " +tb4+ " (" +tb4_column1+ "))";
+
+
 
 }

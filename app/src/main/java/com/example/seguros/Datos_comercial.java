@@ -7,14 +7,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class Datos_comercial extends AppCompatActivity {
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     EditText edDNI, edNombre, edApe1, edApe2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +22,7 @@ public class Datos_comercial extends AppCompatActivity {
         MainActivity main = new MainActivity();
         main.establecerFondo(fondo, prefs);
         //Super importante, lo primero  Abrimos la base de datos
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que esa apertura se en modo lectura y escritura
         sql = bd.getWritableDatabase();
 

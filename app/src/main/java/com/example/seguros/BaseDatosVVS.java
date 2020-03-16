@@ -8,28 +8,37 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 
-import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
 import java.util.Date;
 
-public class BaseDatosVictorPrueba extends SQLiteOpenHelper
+public class BaseDatosVVS extends SQLiteOpenHelper
 {
     protected static final int db_version=1;
     protected static final String db_nombre= "seguros.db";
     protected static SQLiteDatabase db;
 
-    public BaseDatosVictorPrueba(Context context,String name, CursorFactory factory, int version) {
+    public BaseDatosVVS(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(Bd_estructura_victor_prueba.crear_tb1);
-        db.execSQL(Bd_estructura_victor_prueba.crear_tb4);
-        db.execSQL(Bd_estructura_victor_prueba.crear_tb3);
-        db.execSQL(Bd_estructura_victor_prueba.crear_tb2);
+        db.execSQL(Bd_estructura_VVS.crear_tb1);
+        db.execSQL(Bd_estructura_VVS.crear_tb4);
+        db.execSQL(Bd_estructura_VVS.crear_tb3);
+        db.execSQL(Bd_estructura_VVS.crear_tb2);
+        db.execSQL(Bd_estructura_VVS.crear_tb5);
+
+    }
+
+    public void insertar_valores_admin(SQLiteDatabase sql) {
+        //Ahora indicamos que abra la base de datos en modo lectura y escritura
+        ContentValues valores_admin = new ContentValues();
+        valores_admin.put(Bd_estructura_VVS.tb5_column1, "admin");
+        valores_admin.put(Bd_estructura_VVS.tb5_column2, "1234");
+        long numero  =   sql.insert(Bd_estructura_VVS.tb5, null, valores_admin);
+
+
     }
 
     @Override
@@ -42,22 +51,22 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     {
         ContentValues nuevo_seguro= new ContentValues();
         //El id_Seguro no lo declaramos aquí, poruqe ya tiene puesto autoincrement
-        nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column2, tipo);
-        nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column3, cobertura);
-        nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column4, precio);
-        nuevo_seguro.put(Bd_estructura_victor_prueba.tb1_column5, 1);
+        nuevo_seguro.put(Bd_estructura_VVS.tb1_column2, tipo);
+        nuevo_seguro.put(Bd_estructura_VVS.tb1_column3, cobertura);
+        nuevo_seguro.put(Bd_estructura_VVS.tb1_column4, precio);
+        nuevo_seguro.put(Bd_estructura_VVS.tb1_column5, 1);
         return nuevo_seguro;
     }
 
     public ContentValues guardar_vendedor(String nif, String nombre, String apellido1, String apellido2, String pass)
     {
         ContentValues nuevo_vendedor= new ContentValues();
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column1, nif);
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column2, nombre);
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column3, apellido1);
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column4, apellido2);
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column5, 1);
-        nuevo_vendedor.put(Bd_estructura_victor_prueba.tb4_column6, pass);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column1, nif);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column2, nombre);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column3, apellido1);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column4, apellido2);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column5, 1);
+        nuevo_vendedor.put(Bd_estructura_VVS.tb4_column6, pass);
         return nuevo_vendedor;
     }
 
@@ -69,8 +78,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     //Metodo para devolver una consulta de un solo comercial
     public Cursor comercial(String dni)
     {
-        Cursor cursor = db.rawQuery("Select "+ Bd_estructura_victor_prueba.tb4_column2 + ", " + Bd_estructura_victor_prueba.tb4_column3 + ", "
-                + Bd_estructura_victor_prueba.tb4_column4 + " from  " + Bd_estructura_victor_prueba.tb4+ " where " +Bd_estructura_victor_prueba.tb4_column1+
+        Cursor cursor = db.rawQuery("Select "+ Bd_estructura_VVS.tb4_column2 + ", " + Bd_estructura_VVS.tb4_column3 + ", "
+                + Bd_estructura_VVS.tb4_column4 + " from  " + Bd_estructura_VVS.tb4+ " where " + Bd_estructura_VVS.tb4_column1+
                 " = " +dni, null);
         return cursor;
     }
@@ -79,8 +88,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     public Cursor listaComerciales(SQLiteDatabase sql)
     {
         //Creamos un array con los campos que queremos seleccionar de la tabla.
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1,Bd_estructura_victor_prueba.tb4_column2, Bd_estructura_victor_prueba.tb4_column3, Bd_estructura_victor_prueba.tb4_column4};
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb4_column1, Bd_estructura_VVS.tb4_column2, Bd_estructura_VVS.tb4_column3, Bd_estructura_VVS.tb4_column4};
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, null, null, null, null, null);
 
         return cursor;
     }
@@ -90,8 +99,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     {
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb1_column1, Bd_estructura_victor_prueba.tb1_column2, Bd_estructura_victor_prueba.tb1_column3,Bd_estructura_victor_prueba.tb1_column4};
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb1, columnasARecuperar, null, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb1_column1, Bd_estructura_VVS.tb1_column2, Bd_estructura_VVS.tb1_column3, Bd_estructura_VVS.tb1_column4};
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb1, columnasARecuperar, null, null, null, null, null);
 
         return cursor;
     }
@@ -100,8 +109,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     {
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1,Bd_estructura_victor_prueba.tb4_column6 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb4_column1, Bd_estructura_VVS.tb4_column6 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, null, null, null, null, null);
 
         return cursor;
     }
@@ -124,6 +133,32 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
             } while (c.moveToNext());
         }
         return false;
+    }
+
+    public boolean esAdmin(String dni, SQLiteDatabase sql, String pass) {
+        //Obtenemos todos los dni de los comercial con sus claves
+        Cursor c = consultaSQLAdmin(sql);
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                //Estos datos serán globales en toda la clase puesto que es con el que trabajaremos
+                String dniTabla = c.getString(0);
+                String passTabla = c.getString(1);
+                if( dniTabla.equals(dni) && passTabla.equals(pass))
+                {
+                    return true;
+                }
+
+            } while (c.moveToNext());
+        }
+        return false;
+    }
+
+    private Cursor consultaSQLAdmin(SQLiteDatabase sql) {
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb5_column1, Bd_estructura_VVS.tb5_column2 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb5, columnasARecuperar, null, null, null, null, null);
+
+        return cursor;
     }
 
     public ContentValues guardar_cliente(String nif, String nombre, String apellido1, String apellido2, String nifVendedor)
@@ -166,9 +201,9 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
 
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb3_column2, Bd_estructura_victor_prueba.tb3_column3,
-                Bd_estructura_victor_prueba.tb3_column4, Bd_estructura_victor_prueba.tb3_column1 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb3, columnasARecuperar, Bd_estructura_victor_prueba.tb3_column5 +" = "+ dniComercial, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb3_column2, Bd_estructura_VVS.tb3_column3,
+                Bd_estructura_VVS.tb3_column4, Bd_estructura_VVS.tb3_column1 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb3, columnasARecuperar, Bd_estructura_VVS.tb3_column5 +" = "+ dniComercial, null, null, null, null);
 
         return cursor;
     }
@@ -178,17 +213,17 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
 
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb2_column1, Bd_estructura_victor_prueba.tb2_column3,
-                Bd_estructura_victor_prueba.tb2_column4, Bd_estructura_victor_prueba.tb2_column5,
-                Bd_estructura_victor_prueba.tb2_column6, Bd_estructura_victor_prueba.tb2_column7 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb2, columnasARecuperar, Bd_estructura_victor_prueba.tb2_column2 +" = "+ Comercial.dni_cliente_elegido, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb2_column1, Bd_estructura_VVS.tb2_column3,
+                Bd_estructura_VVS.tb2_column4, Bd_estructura_VVS.tb2_column5,
+                Bd_estructura_VVS.tb2_column6, Bd_estructura_VVS.tb2_column7 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, Bd_estructura_VVS.tb2_column2 +" = "+ Comercial.dni_cliente_elegido, null, null, null, null);
 
         return cursor;
     }
 
     public String dameNombreSeguro(SQLiteDatabase sql, String id_seguro) {
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb1_column2 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb1, columnasARecuperar, Bd_estructura_victor_prueba.tb1_column1 +" = "+ id_seguro, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb1_column2 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb1, columnasARecuperar, Bd_estructura_VVS.tb1_column1 +" = "+ id_seguro, null, null, null, null);
         String nombreSeguro = null;
         while(cursor.moveToNext()){
              nombreSeguro = cursor.getString(0);
@@ -197,8 +232,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     }
 
     public boolean existeCliente(SQLiteDatabase sql, String dni) {
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb3_column1 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb3, columnasARecuperar, null, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb3_column1 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb3, columnasARecuperar, null, null, null, null, null);
         while(cursor.moveToNext()){
             if(cursor.getString(0).equals(dni)){
                 return true;
@@ -208,8 +243,8 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
     }
 
     public boolean existeComercial(SQLiteDatabase sql, String dni) {
-        String[] columnasARecuperar = new String [] {Bd_estructura_victor_prueba.tb4_column1 };
-        Cursor cursor = sql.query(Bd_estructura_victor_prueba.tb4, columnasARecuperar, null, null, null, null, null);
+        String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb4_column1 };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, null, null, null, null, null);
         while(cursor.moveToNext()){
             if(cursor.getString(0).equals(dni)){
                 return true;
@@ -217,4 +252,6 @@ public class BaseDatosVictorPrueba extends SQLiteOpenHelper
         }
         return false;
     }
+
+
 }

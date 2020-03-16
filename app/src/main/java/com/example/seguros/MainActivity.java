@@ -1,6 +1,5 @@
 package com.example.seguros;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,26 +8,13 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -39,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout fondo;
     int mDefaultColor;
     static Context context;
+    SQLiteDatabase sql;
+    BaseDatosVVS bd;
 
 
     @Override
@@ -55,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
 
         establecerFondo(fondo, prefs);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        sql = bd.getReadableDatabase();
+
+        bd.insertar_valores_admin(sql);
+
     }
 
     public void establecerFondo(ConstraintLayout fondoAestablecer, SharedPreferences prefs ) {
@@ -121,29 +114,6 @@ public class MainActivity extends AppCompatActivity {
         menu.show();
     }
 
-    public void mostar(View v) {
-        SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
-        ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
-        int colores = prefs.getInt("numeroColores", 0);
-    }
-
-    public int openColorPicker() {
-        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            int mDefaultColor;
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-            }
-            @Override
-            //Establezco el fondo
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                mDefaultColor = color;
-                fondo.setBackgroundColor(mDefaultColor);
-
-            }
-        });
-        colorPicker.show();
-        return mDefaultColor;
-    }
 
     //Usaremos este método para guardar la información en el caso en que pase a segundo plano la App
     public void onSaveInstanceState(Bundle estado) {
@@ -164,13 +134,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void entrarApp(View v) {
         //Abrimos conexiones a la BD
-        SQLiteDatabase sql;
-        BaseDatosVictorPrueba bd;
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
 
 
-        if (edUsuario.getText().toString().equals("admin")) {
+
+        if (  bd.esAdmin(edUsuario.getText().toString(), sql,edPass.getText().toString() )) {
             Intent intento = new Intent(this, Admin.class);
             startActivity(intento);
         } else if (bd.passOK(sql, edUsuario.getText().toString(), edPass.getText().toString())) {
@@ -184,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Usuario o contraseña no encontrados.", Toast.LENGTH_SHORT).show();
         }
+        bd.close();
+        sql.close();
     }
 
     public void onStop()

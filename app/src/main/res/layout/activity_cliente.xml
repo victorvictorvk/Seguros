@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
                 android:text="Nombre"
+                android:textColor="@color/colorBlanco"
                 android:textSize="24sp"
                 tools:text="Nombre" />
 
@@ -35,6 +36,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
+                android:textColor="@color/colorBlanco"
+
                 android:textSize="18sp" />
 
         </TableRow>
@@ -50,6 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:text="Apellido 1"
+                android:textColor="@color/colorBlanco"
+
                 android:textSize="24sp"
                 tools:text="Apellido 1" />
 
@@ -59,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:width="250dp"
                 android:ems="10"
+                android:textColor="@color/colorBlanco"
+
                 android:inputType="textPersonName"
                 android:text="Name"
                 android:textSize="18sp" />
@@ -76,6 +83,8 @@
                 android:layout_marginRight="15dp"
                 android:text="Apellido 2"
                 android:textSize="24sp"
+                android:textColor="@color/colorBlanco"
+
                 tools:text="Apellido 2" />
 
             <EditText
@@ -86,6 +95,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
+                android:textColor="@color/colorBlanco"
+
                 android:textSize="18sp" />
         </TableRow>
 
@@ -100,6 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:text="DNI"
+                android:textColor="@color/colorBlanco"
+
                 android:textSize="24sp"
                 tools:text="DNI" />
 
@@ -111,6 +124,8 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
+                android:textColor="@color/colorBlanco"
+
                 android:textSize="18sp" />
         </TableRow>
 
@@ -126,6 +141,8 @@
         android:text="Para moficar  los datos, basta con editar cualquier campo superior y pulsar el botón"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/colorBlanco"
+
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
@@ -142,6 +159,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
@@ -154,6 +172,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorBlanco"
+
         app:layout_constraintTop_toBottomOf="@+id/buttonModificarCliente" />
 
     <ScrollView
@@ -162,6 +182,7 @@
         android:layout_width="403dp"
         android:layout_height="153dp"
         android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBlanco"
 
         android:layout_marginTop="32dp"
         android:background="@color/fondo_transparente_scroll"
@@ -200,6 +221,7 @@
         android:onClick="pasarActividadContratarSeguro"
         android:padding="10dp"
         android:text="Contratar seguro"
+
         android:textColor="?attr/actionModeSplitBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

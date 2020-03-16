@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class Datos_Seguros extends AppCompatActivity {
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     EditText edTipoSeguro, etCobertura,edPrecio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Datos_Seguros extends AppCompatActivity {
         ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
         MainActivity main = new MainActivity();
         main.establecerFondo(fondo, prefs);
-        bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         //Ahora indicamos que esa apertura se en modo lectura y escritura
         sql = bd.getWritableDatabase();
 

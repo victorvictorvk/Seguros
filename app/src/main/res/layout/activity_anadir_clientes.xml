@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="dni"
-            android:inputType="textPersonName"
+            android:inputType="none|numberSigned"
             android:textSize="24sp" />
 
         <TextView

@@ -1,6 +1,5 @@
 package com.example.seguros;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -8,8 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,7 @@ public class AnadirSeguros extends AppCompatActivity {
     private EditText tipoSeguro, cobertura, precio;
     private Button botonAnadirSeguro;
     public SQLiteDatabase sql;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +43,7 @@ public class AnadirSeguros extends AppCompatActivity {
         if(!tipoDeSeguro.isEmpty() && !coberturaSeguro.isEmpty() && !precio.getText().toString().isEmpty())
         {
             //Abrimos conexiones:
-            bd = new BaseDatosVictorPrueba(this, BaseDatosVictorPrueba.db_nombre, null, BaseDatosVictorPrueba.db_version);
+            bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
             //Ahora indicamos que abra la base de datos en modo lectura y escritura
             sql = bd.getWritableDatabase();
 
@@ -59,8 +56,8 @@ public class AnadirSeguros extends AppCompatActivity {
             //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
             ContentValues nuevo_seguro = bd.guardar_seguro(tipoDeSeguro, coberturaSeguro, numero);
 
-            bd.insertar_valores(sql, Bd_estructura_victor_prueba.tb1,  nuevo_seguro);
-            //sql.insert(Bd_estructura_victor_prueba.tb4, null, registronuevo);
+            bd.insertar_valores(sql, Bd_estructura_VVS.tb1,  nuevo_seguro);
+            //sql.insert(Bd_estructura_VVS.tb4, null, registronuevo);
 
             tipoSeguro.setText("");
             cobertura.setText("");

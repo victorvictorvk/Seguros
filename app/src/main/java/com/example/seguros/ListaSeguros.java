@@ -3,7 +3,6 @@ package com.example.seguros;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 public class ListaSeguros extends AppCompatActivity {
 
     public SQLiteDatabase sqlt;
-    public BaseDatosVictorPrueba bd;
+    public BaseDatosVVS bd;
     static Context context;
 
-   public ListaSeguros(Context c, SQLiteDatabase sql, BaseDatosVictorPrueba bd){
+   public ListaSeguros(Context c, SQLiteDatabase sql, BaseDatosVVS bd){
        this.context = c;
 
        this.bd = bd;

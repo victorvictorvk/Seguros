@@ -26,7 +26,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Introduce el dni comercial"
-            android:inputType="textPersonName"
+            android:inputType="none|numberSigned"
+            android:textColor="@color/colorBlanco"
+            android:textColorHint="@color/colorBlanco"
             android:textSize="24sp" />
 
         <EditText
@@ -36,6 +38,8 @@
             android:ems="10"
             android:hint="Introduce el nombre del comercial"
             android:inputType="textPersonName"
+            android:textColor="@color/colorBlanco"
+            android:textColorHint="@color/colorBlanco"
             android:textSize="24sp" />
 
         <EditText
@@ -53,6 +57,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Introduce el segundo apellido"
+            android:textColor="@color/colorBlanco"
+            android:textColorHint="@color/colorBlanco"
             android:inputType="textPersonName"
             android:textSize="24sp" />
 
@@ -62,7 +68,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Contraseña"
-            android:inputType="textPersonName" />
+            android:textColor="@color/colorBlanco"
+            android:textColorHint="@color/colorBlanco"
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/botonAnadirComercial"
@@ -72,6 +81,7 @@
             android:onClick="anadirComercial"
             android:text="Añadir Comercial"
             android:textColor="@android:color/background_dark"
+
             android:textSize="30sp" />
 
     </LinearLayout>
