@@ -116,10 +116,10 @@ public class ContratarSeguro extends AppCompatActivity {
                     bd.close();
                     sql.close();
                 } else {
-                    Toast.makeText(this, "EL % de riesgo tiene que estar en 1 y 99", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "El % de descuento tiene que estar en 1 y 99", Toast.LENGTH_SHORT).show();
                 }
                 } else {
-                Toast.makeText(this, "EL número de riesgo tiene que estar en 1 y 9", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "El número de riesgo tiene que estar en 1 y 9", Toast.LENGTH_SHORT).show();
 
             }
         } else {
