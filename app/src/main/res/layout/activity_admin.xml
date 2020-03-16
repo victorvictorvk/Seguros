@@ -7,33 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".Admin">
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Introduce un comercial para consultar, actualizar o eliminar"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextViewListaComerciales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="Buscar comercial o despliega"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <ImageView
         android:id="@+id/flechaComerciales"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="35dp"
         android:onClick="desplegarListaComercialesChapuza"
         app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextViewListaComerciales"
         app:layout_constraintTop_toTopOf="@+id/autoCompleteTextViewListaComerciales"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
+    <Button
+        android:id="@+id/buttonComercial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="verAnadirComerciales"
+        android:text="añadir Comercial"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewListaComerciales" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="316dp"
-        android:layout_height="308dp"
+        android:layout_width="354dp"
+        android:layout_height="327dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:gravity="center_horizontal|left"
         android:orientation="vertical"
@@ -41,16 +70,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewListaComerciales">
 
-        <Button
-            android:id="@+id/buttonComercial"
+        <TextView
+
+            android:id="@+id/textView18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/roundedbutton"
-            android:onClick="verAnadirComerciales"
-            android:text="añadir Comercial"
-            android:textColor="@android:color/background_dark"
-            android:textSize="24sp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Introduce un seguro para consultar, actualizar o eliminar"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +100,7 @@
             <ImageView
                 android:id="@+id/flechaSeguros"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="31dp"
                 android:layout_weight="1"
                 android:onClick="desplegarListaSeguros"
                 app:srcCompat="@android:drawable/arrow_down_float" />

@@ -3,6 +3,7 @@ package com.example.seguros;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -17,12 +19,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Cliente extends AppCompatActivity {
     LinearLayout linearlayoutScroll;
     ScrollView listaPolizas;
-    EditText edDNI, eDNombre, eDApe1, eDApe2;
+    EditText  eDNombre, eDApe1, eDApe2;
+    TextView tvDniCliente;
     static String dniCliente, nombreCliente, ape1Cliente, ape2Cliente;
     public SQLiteDatabase sql;
     public BaseDatosVVS bd;
@@ -49,13 +53,13 @@ public class Cliente extends AppCompatActivity {
         ape1Cliente = bundle.getString("ape1Cliente");
         ape2Cliente = bundle.getString("ape2Cliente");
 
-         edDNI = (EditText) findViewById(R.id.EDDNICliente);
+        tvDniCliente = (TextView) findViewById(R.id.textViewDniCliente);
          eDNombre =(EditText) findViewById(R.id.EDNombreCliente);
-        eDApe1 =(EditText) findViewById(R.id.EDApe1Cliente);
+         eDApe1 =(EditText) findViewById(R.id.EDApe1Cliente);
         eDApe2 =(EditText) findViewById(R.id.EDApe2Cliente);
         //edDNI.setText(dniCliente);
         //Prueba
-        edDNI.setText(Comercial.dni_cliente_elegido);
+        tvDniCliente.setText(Comercial.dni_cliente_elegido);
         eDNombre.setText(nombreCliente);
         eDApe1.setText(ape1Cliente);
         eDApe2.setText(ape2Cliente);
@@ -155,10 +159,12 @@ public class Cliente extends AppCompatActivity {
                 0, 0
         );
 
-        bton.setTextColor(Color.WHITE);
-        bton.setBackgroundColor(Color.BLUE);
+        bton.setTextColor(Color.BLACK);
+        bton.setBackgroundResource(R.drawable.roundedbutton);
         //Anchura de cada boton
         bton.setWidth(800);
+        btn.setHeight(25);
+        btn.setTextSize(12);
         bton.setLayoutParams(params);
     }
 
@@ -200,8 +206,36 @@ public class Cliente extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         linearlayoutScroll.removeAllViews();
-
         establecerScrollViewPolizas();
+    }
 
+    public void modificarCliente(View v)
+    {
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        sql = bd.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Bd_estructura_VVS.tb3_column2, eDNombre.getText().toString());
+        valores.put(Bd_estructura_VVS.tb3_column3, eDApe1.getText().toString());
+        valores.put(Bd_estructura_VVS.tb3_column4, eDApe2.getText().toString());
+
+        sql.update(Bd_estructura_VVS.tb3, valores, Bd_estructura_VVS.tb3_column1+" = "+ Comercial.dni_cliente_elegido, null );
+
+        bd.close();
+        sql.close();
+        Toast.makeText(this, "El registro se modificó", Toast.LENGTH_SHORT).show();
+    }
+
+    public void eliminarCliente(View v)
+    {
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        sql = bd.getWritableDatabase();
+
+        sql.delete(Bd_estructura_VVS.tb3, Bd_estructura_VVS.tb3_column1+" = "+ Comercial.dni_cliente_elegido, null );
+
+        bd.close();
+        sql.close();
+        Toast.makeText(this, "El registro se eliminó", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

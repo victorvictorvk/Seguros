@@ -99,26 +99,19 @@ public class Comercial extends AppCompatActivity {
         return array;
 
     }
-
-    public void mostrarTodosClientes(View v)
-    {
-        Intent intento = new Intent(this, TodosClientes.class);
-        startActivity(intento);
-    }
-
     public void pasarActividadAnadirCliente(View v)
     {
-
         Intent intento = new Intent(this, Anadir_clientes.class);
         startActivity(intento);
         overridePendingTransition (0,0);
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         editText = findViewById(R.id.autoCompleteTextView99);
+        editText.setText("");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, dameArray());
         editText.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter

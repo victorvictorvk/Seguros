@@ -116,17 +116,14 @@
                 android:textSize="24sp"
                 tools:text="DNI" />
 
-            <EditText
-                android:id="@+id/EDDNICliente"
+            <TextView
+                android:id="@+id/textViewDniCliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:width="250dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
+                android:text="TextView"
                 android:textColor="@color/colorBlanco"
-
                 android:textSize="18sp" />
+
         </TableRow>
 
     </TableLayout>
@@ -149,17 +146,38 @@
 
     <Button
         android:id="@+id/buttonModificarCliente"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/roundedbutton"
+        android:onClick="eliminarCliente"
         android:padding="10dp"
-        android:text="Modificar datos"
+
+        android:text="@string/eliminar_cliente"
         android:textColor="?attr/actionModeSplitBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonModificarCliente2" />
 
+    <Button
+        android:id="@+id/buttonModificarCliente2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="modificarCliente"
+        android:padding="10dp"
+        android:text="Modificar datos"
+
+        android:textColor="?attr/actionModeSplitBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
@@ -168,11 +186,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Seguros Contratados"
-        android:textSize="18sp"
+        android:textColor="@color/colorBlanco"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/colorBlanco"
 
         app:layout_constraintTop_toBottomOf="@+id/buttonModificarCliente" />
 
@@ -182,10 +200,10 @@
         android:layout_width="403dp"
         android:layout_height="153dp"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorBlanco"
+        android:layout_marginTop="8dp"
 
-        android:layout_marginTop="32dp"
         android:background="@color/fondo_transparente_scroll"
+        android:textColor="@color/colorBlanco"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -200,28 +218,18 @@
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="254dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="8dp"
-        android:text="Selecciona un seguro para editarlo"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaPolizas" />
-
     <Button
         android:id="@+id/botonContratarSeguro"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
         android:onClick="pasarActividadContratarSeguro"
+
         android:padding="10dp"
         android:text="Contratar seguro"
-
         android:textColor="?attr/actionModeSplitBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

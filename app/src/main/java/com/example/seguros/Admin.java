@@ -34,12 +34,6 @@ public class Admin extends AppCompatActivity {
         ConstraintLayout fondo = (ConstraintLayout) findViewById(R.id.fondo);
         MainActivity main = new MainActivity();
         main.establecerFondo(fondo, prefs);
-        crearAdaptadorComercialesChapuza();
-        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
-        //Ahora indicamos que abra la base de datos en modo lectura y escritura
-        sql = bd.getWritableDatabase();
-        claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
-        crearAdaptadorSeguros();
 
         flechaComerciales = (ImageView)findViewById(R.id.flechaComerciales);
         flechaSeguros = (ImageView) findViewById(R.id.flechaSeguros);
@@ -75,6 +69,7 @@ public class Admin extends AppCompatActivity {
     }
     private void crearAdaptadorSeguros() {
         autoCompleteTVListaSeguros = (AutoCompleteTextView) findViewById(R.id.autoCompleteTVListaSeguros);
+
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
                 R.layout.autocompletetv_personal_de_victor,R.id.autoCompleteItem, claseListaSeguros.listaSeguros());
         autoCompleteTVListaSeguros.setThreshold(1);//Esto es para que empiece a buscar por 1 caracter
@@ -300,4 +295,26 @@ public class Admin extends AppCompatActivity {
         //intento.putExtra("comercial", idCliente.getText().toString());
         startActivity(intento);
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        autoCompleteTVListaSeguros = (AutoCompleteTextView) findViewById(R.id.autoCompleteTVListaSeguros);
+
+        autoCompleteTVListaSeguros.setText("");
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        //Ahora indicamos que abra la base de datos en modo lectura y escritura
+        sql = bd.getWritableDatabase();
+        claseListaSeguros = new ListaSeguros(ListaSeguros.context, sql, bd);
+        crearAdaptadorSeguros();
+        aCTtVListaComerciales = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewListaComerciales);
+        aCTtVListaComerciales.setText("");
+        crearAdaptadorComercialesChapuza();
+
+        bd.close();
+        sql.close();
+
+    }
+
 }

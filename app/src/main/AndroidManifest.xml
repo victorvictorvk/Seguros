@@ -18,7 +18,6 @@
         <activity android:name=".AnadirComercial" />
         <activity android:name=".Admin" />
         <activity android:name=".Cliente" />
-        <activity android:name=".TodosClientes" />
         <activity android:name=".Comercial" />
         <activity android:name=".MainActivity">
             <intent-filter>

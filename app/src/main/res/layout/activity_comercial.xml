@@ -18,6 +18,7 @@
         android:dropDownWidth="wrap_content"
         android:hint="@string/introduce_nombre_cliente"
 
+        android:textColorHint="@color/colorBlanco"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -37,24 +38,12 @@
         app:srcCompat="@android:drawable/arrow_down_float" />
 
     <Button
-        android:id="@+id/mostrarTodosClientes"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/roundedbutton"
-        android:onClick="mostrarTodosClientes"
-        android:text="@string/mostrar_todos"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintBottom_toTopOf="@+id/anadir"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/anadir"
-        android:layout_width="136dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/roundedbutton"
         android:onClick="pasarActividadAnadirCliente"
         android:text="@string/a_adir_cliente"

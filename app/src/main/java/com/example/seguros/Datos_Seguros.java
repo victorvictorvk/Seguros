@@ -3,16 +3,20 @@ package com.example.seguros;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Datos_Seguros extends AppCompatActivity {
     public SQLiteDatabase sql;
     public BaseDatosVVS bd;
     EditText edTipoSeguro, etCobertura,edPrecio;
+    String idSeguro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +34,7 @@ public class Datos_Seguros extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         //Este lo necesitaremos para hacer las consultas
-        String idSeguro = bundle.getString("idSeguro");
+        idSeguro = bundle.getString("idSeguro");
 
 
         String tipoSeguro = bundle.getString("tipoSeguro");
@@ -48,5 +52,36 @@ public class Datos_Seguros extends AppCompatActivity {
 
         bd.close();
         sql.close();
+    }
+
+    public void modificarDatos(View v)
+    {
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        sql = bd.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(Bd_estructura_VVS.tb1_column2, edTipoSeguro.getText().toString());
+        valores.put(Bd_estructura_VVS.tb1_column3, etCobertura.getText().toString());
+        valores.put(Bd_estructura_VVS.tb1_column4, edPrecio.getText().toString());
+
+        sql.update(Bd_estructura_VVS.tb1, valores, Bd_estructura_VVS.tb1_column1+" = "+ idSeguro, null );
+
+        bd.close();
+        sql.close();
+        Toast.makeText(this, "El registro se modificó", Toast.LENGTH_SHORT).show();
+    }
+
+    public void eliminarDatos(View v)
+    {
+        bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
+        sql = bd.getWritableDatabase();
+        sql.delete(Bd_estructura_VVS.tb1,Bd_estructura_VVS.tb1_column1+"= "+ idSeguro, null );
+
+        bd.close();
+        sql.close();
+        Toast.makeText(this, "El registro se eliminó", Toast.LENGTH_SHORT).show();
+        edTipoSeguro.setText("");
+        etCobertura.setText("");
+        edPrecio.setText("");
     }
 }
