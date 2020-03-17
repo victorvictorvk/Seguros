@@ -238,6 +238,22 @@ public class BaseDatosVVS extends SQLiteOpenHelper
         }
         return false;
     }
+
+    public boolean estaSeguro(SQLiteDatabase sql, String idSeguro, String columnaIdseguro, String colActivo) {
+
+        //Consultamos si existe este id en la tabla polizas
+        String[] columnasARecuperar = new String [] {columnaIdseguro, colActivo };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, null
+                , null, null, null, null);
+
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(idSeguro)&& cursor.getString(1).equals("1") ){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean estaAsociadoActivo(SQLiteDatabase sql, String idSeguro, String columna, String colActivo) {
 
         //Consultamos si existe este id en la tabla polizas

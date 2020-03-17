@@ -10,6 +10,11 @@
         android:id="@+id/autoCompleteItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+
+        android:background="@color/colorBlanco"
+        android:drawableLeft="@android:drawable/btn_radio"
+        android:fallbackLineSpacing="false"
         android:padding="5dp"
-        android:textSize="24dp" />
+        android:textColor="@android:color/background_dark"
+        android:textSize="30dp" />
 </LinearLayout>

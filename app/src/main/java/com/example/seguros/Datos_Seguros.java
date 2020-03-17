@@ -76,7 +76,7 @@ public class Datos_Seguros extends AppCompatActivity {
         sql = bd.getWritableDatabase();
         //Comprobamos si este seguro está estaAsociado a alguna poliza
 
-        boolean asociado = bd.estaAsociado(sql, idSeguro, Bd_estructura_VVS.tb2_column1);
+        boolean asociado = bd.estaSeguro(sql, idSeguro, Bd_estructura_VVS.tb2_column1, Bd_estructura_VVS.tb2_column10 );
         if(!asociado) {
             ContentValues valores = new ContentValues();
             valores.put(Bd_estructura_VVS.tb1_column2, edTipoSeguro.getText().toString());
@@ -95,7 +95,7 @@ public class Datos_Seguros extends AppCompatActivity {
             finish();
         } else
         {
-            Toast.makeText(this, "No se puede eliminar porque dicho seguro está asociado a una póliza", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede eliminar porque dicho seguro está asociado a una póliza activa", Toast.LENGTH_SHORT).show();
 
         }
     }
