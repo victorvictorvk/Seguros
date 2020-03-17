@@ -80,7 +80,7 @@
             android:textColorHint="@color/colorBlanco"
             android:inputType="textPersonName"
             android:textSize="24sp"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ0123456789"
             />
 
         <Button
