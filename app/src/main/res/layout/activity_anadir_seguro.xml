@@ -50,7 +50,6 @@
             android:hint="Precio"
             android:inputType="numberSigned"
             android:textSize="24sp"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
             />
 
         <Button
