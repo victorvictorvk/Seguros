@@ -12,7 +12,7 @@
                 <item android:id="@+id/SubMnuOpc1"
                     android:title="Degradado azul" />
                 <item android:id="@+id/SubMnuOpc2"
-                    android:title="Degradado amarillo" />
+                    android:title="Degradado verde" />
                 <item android:id="@+id/SubMnuOpc3"
                 android:title="Degradado rojo" />
 

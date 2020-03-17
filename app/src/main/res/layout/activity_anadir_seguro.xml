@@ -27,7 +27,9 @@
             android:ems="10"
             android:hint="Introduce el tipo de Seguro"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            />
 
         <EditText
             android:id="@+id/editTextCobertura"
@@ -36,7 +38,9 @@
             android:ems="10"
             android:hint="Introduce cobertura de Seguro"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            />
 
         <EditText
             android:id="@+id/editTextPrecio"
@@ -45,7 +49,9 @@
             android:ems="10"
             android:hint="Precio"
             android:inputType="numberSigned"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            />
 
         <Button
             android:id="@+id/buttonAnadirSeguro"

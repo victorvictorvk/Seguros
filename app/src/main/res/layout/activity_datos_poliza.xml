@@ -34,9 +34,13 @@
                 android:id="@+id/editTextNombreSeguro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:ems="10"
-                android:hint="Número de poliza"
+                android:enabled="false"
+                android:hint="Nomrbe del seguro"
                 android:inputType="textPersonName"
+                android:textColor="@color/colorBlanco"
+                android:textColorHighlight="@color/colorBlanco"
                 android:textColorHint="@color/colorBlanco" />
         </TableRow>
 
@@ -59,7 +63,9 @@
                 android:ems="10"
                 android:hint="Número de riesgo"
                 android:inputType="textPersonName"
-                android:textColorHint="@color/colorBlanco" />
+                android:textColorHint="@color/colorBlanco"
+                android:digits="0123456789"
+                />
         </TableRow>
 
         <TableRow
@@ -79,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Número de riesgo"
+                android:hint="Descuento"
                 android:inputType="textPersonName"
                 android:textColorHint="@color/colorBlanco" />
         </TableRow>
@@ -116,7 +122,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2"
+        />
 
     <EditText
         android:id="@+id/editTextComentarios"
@@ -129,6 +136,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ 1234567890"
+
         app:layout_constraintTop_toBottomOf="@+id/textViewComentarios" />
 
     <Button

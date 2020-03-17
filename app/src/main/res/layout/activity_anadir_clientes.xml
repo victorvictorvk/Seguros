@@ -34,14 +34,18 @@
             android:ems="10"
             android:hint="dni"
             android:inputType="none|numberSigned"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ñÑ"
+            />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre Cliente"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+
+            />
 
         <EditText
             android:id="@+id/editTextnombreCliente"
@@ -50,7 +54,9 @@
             android:ems="10"
             android:hint="Nombre cliente"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ "
+            />
 
         <TextView
             android:id="@+id/textView12"
@@ -66,7 +72,9 @@
             android:ems="10"
             android:hint="apellido 1"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            />
 
         <TextView
             android:id="@+id/textView13"
@@ -82,7 +90,9 @@
             android:ems="10"
             android:hint="apellido 2"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZñÑ"
+            />
 
         <Button
             android:id="@+id/botonAnadirCliente"
