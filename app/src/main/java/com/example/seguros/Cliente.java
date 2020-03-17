@@ -219,7 +219,6 @@ public class Cliente extends AppCompatActivity {
             valores.put(Bd_estructura_VVS.tb3_column2, eDNombre.getText().toString());
             valores.put(Bd_estructura_VVS.tb3_column3, eDApe1.getText().toString());
             valores.put(Bd_estructura_VVS.tb3_column4, eDApe2.getText().toString());
-            valores.put(Bd_estructura_VVS.tb3_column6, 0);
 
             sql.update(Bd_estructura_VVS.tb3, valores, Bd_estructura_VVS.tb3_column1 + " = " + Comercial.dni_cliente_elegido, null);
 

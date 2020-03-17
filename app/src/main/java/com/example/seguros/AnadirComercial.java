@@ -53,7 +53,7 @@ public class AnadirComercial extends AppCompatActivity {
             String apellido2 = ape2Comercial.getText().toString();
             String passComercial  = pass.getText().toString();
 
-            if( !dni.isEmpty()  && !nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty())
+            if( !dni.isEmpty()  && !nombre.isEmpty() && !apellido1.isEmpty() && !apellido2.isEmpty() && !passComercial.isEmpty())
             {
                 //Cremos un objeto de tipo ContentValues que le llamamos registro y le metemos todos los datos que queremos introducir
                 //En la clase BASE DATOS tebemos un metodo que nos devuelve un content.
