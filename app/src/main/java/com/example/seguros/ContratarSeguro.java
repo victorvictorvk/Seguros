@@ -133,7 +133,8 @@ public class ContratarSeguro extends AppCompatActivity {
         sql = bd.getReadableDatabase();
         Seguro s = null;
         segurosList = new ArrayList<Seguro>();
-        Cursor c = sql.rawQuery("Select * from "+ Bd_estructura_VVS.tb1, null);
+        Cursor c = bd.listaSeguros(sql);
+        //Cursor c = sql.rawQuery("Select * from "+ Bd_estructura_VVS.tb1, null);
 
         while(c.moveToNext())
         {
@@ -142,13 +143,13 @@ public class ContratarSeguro extends AppCompatActivity {
             s.setTipo_seguro(c.getString(1));
             s.setCobertura(c.getString(2));
             s.setPrecio(c.getInt(3));
-            s.setActivo(c.getInt(4));
+//            s.setActivo(c.getInt(4));
 
             Log.i("id_seguro", s.getId_seguro().toString());
             Log.i("tipo_seguro", s.getTipo_seguro());
             Log.i("cobertura_seguro", s.getCobertura());
             Log.i("precio_seguro", s.getPrecio().toString());
-            Log.i("activo_seguro", s.getActivo().toString());
+//            Log.i("activo_seguro", s.getActivo().toString());
 
             segurosList.add(s);
         }

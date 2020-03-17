@@ -89,7 +89,7 @@ public class BaseDatosVVS extends SQLiteOpenHelper
     {
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb4_column1, Bd_estructura_VVS.tb4_column2, Bd_estructura_VVS.tb4_column3, Bd_estructura_VVS.tb4_column4};
-        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, null, null, null, null, null);
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, Bd_estructura_VVS.tb4_column5+" = 1", null, null, null, null);
 
         return cursor;
     }
@@ -100,17 +100,19 @@ public class BaseDatosVVS extends SQLiteOpenHelper
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
         String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb1_column1, Bd_estructura_VVS.tb1_column2, Bd_estructura_VVS.tb1_column3, Bd_estructura_VVS.tb1_column4};
-        Cursor cursor = sql.query(Bd_estructura_VVS.tb1, columnasARecuperar, null, null, null, null, null);
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb1, columnasARecuperar, Bd_estructura_VVS.tb1_column5+" = 1", null, null, null, null);
 
         return cursor;
     }
+
+
 
     public Cursor consultaSQLComercialesPass(SQLiteDatabase sql)
     {
         //Creamos un array con los campos que queremos seleccionar de la tabla.
         //En esta consulta necesitaremos el campo id para futuras acciones
         String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb4_column1, Bd_estructura_VVS.tb4_column6 };
-        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, null, null, null, null, null);
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb4, columnasARecuperar, Bd_estructura_VVS.tb4_column5+" = 1", null, null, null, null);
 
         return cursor;
     }
@@ -203,7 +205,8 @@ public class BaseDatosVVS extends SQLiteOpenHelper
         //En esta consulta necesitaremos el campo id para futuras acciones
         String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb3_column2, Bd_estructura_VVS.tb3_column3,
                 Bd_estructura_VVS.tb3_column4, Bd_estructura_VVS.tb3_column1 };
-        Cursor cursor = sql.query(Bd_estructura_VVS.tb3, columnasARecuperar, Bd_estructura_VVS.tb3_column5 +" = "+ dniComercial, null, null, null, null);
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb3, columnasARecuperar, Bd_estructura_VVS.tb3_column5 +" = "+ dniComercial
+                +" and "+Bd_estructura_VVS.tb3_column6 + "= 1 ", null, null, null, null);
 
         return cursor;
     }
@@ -216,9 +219,53 @@ public class BaseDatosVVS extends SQLiteOpenHelper
         String[] columnasARecuperar = new String [] {Bd_estructura_VVS.tb2_column1, Bd_estructura_VVS.tb2_column3,
                 Bd_estructura_VVS.tb2_column4, Bd_estructura_VVS.tb2_column5,
                 Bd_estructura_VVS.tb2_column6, Bd_estructura_VVS.tb2_column7 };
-        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, Bd_estructura_VVS.tb2_column2 +" = "+ Comercial.dni_cliente_elegido, null, null, null, null);
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, Bd_estructura_VVS.tb2_column2 +" = "+ Comercial.dni_cliente_elegido
+              +" and "+ Bd_estructura_VVS.tb2_column10 +" = 1" , null, null, null, null);
 
         return cursor;
+    }
+    public boolean estaAsociado(SQLiteDatabase sql, String idSeguro, String columna) {
+
+        //Consultamos si existe este id en la tabla polizas
+        String[] columnasARecuperar = new String [] {columna };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, null
+                , null, null, null, null);
+
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(idSeguro)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean estaAsociadoActivo(SQLiteDatabase sql, String idSeguro, String columna, String colActivo) {
+
+        //Consultamos si existe este id en la tabla polizas
+        String[] columnasARecuperar = new String [] {columna, colActivo };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb2, columnasARecuperar, null
+                , null, null, null, null);
+
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(idSeguro) && cursor.getString(1).equals("1") ){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean estaClienteActivo(SQLiteDatabase sql, String dniComercial, String columnadniComercial, String colActivo) {
+
+        //Consultamos si existe este id en la tabla polizas
+        String[] columnasARecuperar = new String [] {columnadniComercial, colActivo };
+        Cursor cursor = sql.query(Bd_estructura_VVS.tb3, columnasARecuperar, null
+                , null, null, null, null);
+
+        while(cursor.moveToNext()){
+            if(cursor.getString(0).equals(dniComercial) && cursor.getString(1).equals("1") ){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String dameNombreSeguro(SQLiteDatabase sql, String id_seguro) {
@@ -252,6 +299,7 @@ public class BaseDatosVVS extends SQLiteOpenHelper
         }
         return false;
     }
+
 
 
 }

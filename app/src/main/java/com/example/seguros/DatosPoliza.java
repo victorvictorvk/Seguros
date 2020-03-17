@@ -72,15 +72,21 @@ public class DatosPoliza extends AppCompatActivity {
             }
             } else {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
-
         }
-
     }
     public void eliminarPoliza(View v)
     {
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getWritableDatabase();
-        sql.delete(Bd_estructura_VVS.tb2, Bd_estructura_VVS.tb2_column3+" = "+ poliza, null );
+        ContentValues valores = new ContentValues();
+        valores.put(Bd_estructura_VVS.tb2_column4, eDNumeroRiesgo.getText().toString());
+        valores.put(Bd_estructura_VVS.tb2_column5, eDComentario.getText().toString());
+        valores.put(Bd_estructura_VVS.tb2_column6, eDDescuento.getText().toString());
+        valores.put(Bd_estructura_VVS.tb2_column10, 0);
+
+        sql.update(Bd_estructura_VVS.tb2, valores, Bd_estructura_VVS.tb2_column3+" = "+ poliza, null );
+
+        //sql.delete(Bd_estructura_VVS.tb2, Bd_estructura_VVS.tb2_column3+" = "+ poliza, null );
         bd.close();
         sql.close();
         Toast.makeText(this, "La póliza se eliminó", Toast.LENGTH_SHORT).show();

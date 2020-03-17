@@ -16,8 +16,6 @@
                 <item android:id="@+id/SubMnuOpc3"
                 android:title="Degradado rojo" />
 
-                <item android:id="@+id/SubMnuOpc4"
-                    android:title="Elige tu color" />
 
             </group>
         </menu>

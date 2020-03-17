@@ -63,8 +63,6 @@ public class Cliente extends AppCompatActivity {
         eDNombre.setText(nombreCliente);
         eDApe1.setText(ape1Cliente);
         eDApe2.setText(ape2Cliente);
-
-
     }
     private void establecerScrollViewPolizas() {
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
@@ -215,17 +213,23 @@ public class Cliente extends AppCompatActivity {
     {
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getWritableDatabase();
+        if( !eDNombre.getText().toString().isEmpty()
+                && !eDApe1.getText().toString().isEmpty() && !eDApe2.getText().toString().isEmpty()) {
+            ContentValues valores = new ContentValues();
+            valores.put(Bd_estructura_VVS.tb3_column2, eDNombre.getText().toString());
+            valores.put(Bd_estructura_VVS.tb3_column3, eDApe1.getText().toString());
+            valores.put(Bd_estructura_VVS.tb3_column4, eDApe2.getText().toString());
+            valores.put(Bd_estructura_VVS.tb3_column6, 0);
 
-        ContentValues valores = new ContentValues();
-        valores.put(Bd_estructura_VVS.tb3_column2, eDNombre.getText().toString());
-        valores.put(Bd_estructura_VVS.tb3_column3, eDApe1.getText().toString());
-        valores.put(Bd_estructura_VVS.tb3_column4, eDApe2.getText().toString());
+            sql.update(Bd_estructura_VVS.tb3, valores, Bd_estructura_VVS.tb3_column1 + " = " + Comercial.dni_cliente_elegido, null);
 
-        sql.update(Bd_estructura_VVS.tb3, valores, Bd_estructura_VVS.tb3_column1+" = "+ Comercial.dni_cliente_elegido, null );
+            bd.close();
+            sql.close();
+            Toast.makeText(this, "El registro se modificó", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
 
-        bd.close();
-        sql.close();
-        Toast.makeText(this, "El registro se modificó", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void eliminarCliente(View v)
@@ -233,11 +237,25 @@ public class Cliente extends AppCompatActivity {
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getWritableDatabase();
 
-        sql.delete(Bd_estructura_VVS.tb3, Bd_estructura_VVS.tb3_column1+" = "+ Comercial.dni_cliente_elegido, null );
+        boolean asociado = bd.estaAsociadoActivo(sql, Comercial.dni_cliente_elegido, Bd_estructura_VVS.tb2_column2,Bd_estructura_VVS.tb2_column10 );
+        if(!asociado) {
+
+            ContentValues valores = new ContentValues();
+
+            valores.put(Bd_estructura_VVS.tb3_column2, nombreCliente);
+            valores.put(Bd_estructura_VVS.tb3_column3, ape1Cliente);
+            valores.put(Bd_estructura_VVS.tb3_column4, ape2Cliente);
+            valores.put(Bd_estructura_VVS.tb3_column6, 0);
+
+            sql.update(Bd_estructura_VVS.tb3, valores, Bd_estructura_VVS.tb3_column1+" = "+ Comercial.dni_cliente_elegido, null );
 
         bd.close();
         sql.close();
         Toast.makeText(this, "El registro se eliminó", Toast.LENGTH_SHORT).show();
         finish();
+        } else
+        {
+            Toast.makeText(this, "No se puede eliminar porque dicho Cliente está asociado a una póliza", Toast.LENGTH_SHORT).show();
+        }
     }
 }

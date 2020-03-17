@@ -37,17 +37,11 @@ public class MainActivity extends AppCompatActivity {
         edPass = (EditText) findViewById(R.id.editTextPass);
         fondo = (ConstraintLayout) findViewById(R.id.fondo);
         mDefaultColor = ContextCompat.getColor(MainActivity.this, R.color.colorPrimary);
-        //Fondo f = new Fondo(Fondo.context, fondo);
-
-        //f.establecerFondo();
         SharedPreferences prefs = getSharedPreferences("fondoAplicaciones", Context.MODE_PRIVATE);
-
         establecerFondo(fondo, prefs);
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
-
         bd.insertar_valores_admin(sql);
-
     }
 
     public void establecerFondo(ConstraintLayout fondoAestablecer, SharedPreferences prefs ) {
@@ -131,13 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void entrarApp(View v) {
         //Abrimos conexiones a la BD
         bd = new BaseDatosVVS(this, BaseDatosVVS.db_nombre, null, BaseDatosVVS.db_version);
         sql = bd.getReadableDatabase();
-
-
 
         if (  bd.esAdmin(edUsuario.getText().toString(), sql,edPass.getText().toString() )) {
             Intent intento = new Intent(this, Admin.class);
@@ -150,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intento);
             overridePendingTransition (0,0);
         } else {
-
             Toast.makeText(this, "Usuario o contraseña no encontrados.", Toast.LENGTH_SHORT).show();
         }
         bd.close();
@@ -160,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStop()
     {
         super.onStop();
-
     }
 }
 
